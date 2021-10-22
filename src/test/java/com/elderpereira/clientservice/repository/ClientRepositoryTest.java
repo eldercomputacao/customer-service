@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @DisplayName("Tests for Client Repository")
-public class ClientRepositoryTest {
+class ClientRepositoryTest {
 
     @Autowired
     private ClientRepository clientRepository;
@@ -79,8 +79,6 @@ public class ClientRepositoryTest {
 
         Assertions.assertThat(animeOptional).isEmpty();
     }
-
-
 
     @Test
     @DisplayName("Returns empty list")
