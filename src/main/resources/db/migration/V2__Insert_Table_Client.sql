@@ -1,0 +1,10 @@
+insert into tb_client (name, cpf, phone, email) values ('Tonnie', '9332743880', '(968) 3510718', 'twimsett0@last.fm');
+insert into tb_client (name, cpf, phone, email) values ('Leona', '5415869767', '(586) 5605626', 'llaidler1@nytimes.com');
+insert into tb_client (name, cpf, phone, email) values ('Chandra', '9928958333', '(755) 3331420', 'cuc2@tinyurl.com');
+insert into tb_client (name, cpf, phone, email) values ('Darla', '6473556192', '(341) 9310097', 'dslack3@squidoo.com');
+insert into tb_client (name, cpf, phone, email) values ('Peyter', '5794992451', '(938) 3416227', 'pmildner4@51.la');
+insert into tb_client (name, cpf, phone, email) values ('Horatia', '7496087270', '(638) 2929111', 'hluquet5@squarespace.com');
+insert into tb_client (name, cpf, phone, email) values ('Murray', '2811879923', '(875) 5431201', 'mburnes6@bbb.org');
+insert into tb_client (name, cpf, phone, email) values ('Deni', '7249520161', '(505) 2067862', 'dby7@diigo.com');
+insert into tb_client (name, cpf, phone, email) values ('Aubrey', '3798949129', '(468) 1076937', 'ahabbema8@java.com');
+insert into tb_client (name, cpf, phone, email) values ('Julio', '9004506304', '(226) 3779146', 'jcardoso9@samsung.com');

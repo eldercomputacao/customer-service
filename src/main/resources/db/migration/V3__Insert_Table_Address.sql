@@ -1,0 +1,10 @@
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('China', 'Alpine', 'Blackbird', '9', 'Lawn', 'Oak', 'Hoffman', 'Fremont', 1);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('China', 'Melby', 'Laurel', '518', 'Northfield', 'Graedel', 'Mesta', 'Rieder', 2);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('China', 'Mosinee', 'Veith', '4102', 'Pawling', 'Di Loreto', 'Oak Valley', 'Stuart', 3);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('Brazil', 'Maple Wood', 'Bellgrove', '299', 'Oak Valley', 'Londonderry', 'Novick', 'Rutledge', 4);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('Brazil', 'Loftsgordon', 'Elmside', '78299', 'Rieder', 'Monterey', 'Kenwood', 'Twin Pines', 5);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('China', '4th', 'John Wall', '90620', 'Vernon', 'Dixon', 'Westerfield', 'Riverside', 6);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('China', 'Meadow Valley', 'John Wall', '6298', 'Commercial', 'Eggendart', 'Wayridge', 'Clyde Gallagher', 7);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('China', 'Barby', 'Spaight', '01269', 'Mitchell', 'Forest Run', 'Crest Line', 'Corry', 8);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('China', 'Holy Cross', 'Packers', '8482', 'Portage', 'Bellgrove', 'Oneill', 'Pleasure', 9);
+insert into tb_address (country, street, district, number, complement, postal_code, city, state, client_id) values ('China', 'Novick', 'Red Cloud', '1461', 'Drewry', 'Arapahoe', 'Karstens', 'Jana', 10);
