@@ -3,11 +3,11 @@ server:
 
 spring:
   application:
-    name: client-service
+    name: customer-service
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:15432/client_service
+    url: jdbc:postgresql://localhost:15432/customer_service
     username: root
     password: root123
 
@@ -20,8 +20,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL9Dialect
 
   flyway:
-    url: jdbc:postgresql://localhost:15432/client_service
-    schemas: client_service
+    url: jdbc:postgresql://localhost:15432/customer_service
+    schemas: customer_service
     user: root
     password: root123
 

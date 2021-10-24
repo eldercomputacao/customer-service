@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.elderpereira</groupId>
-	<artifactId>client-service</artifactId>
+	<artifactId>customer-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>client-service</name>
+	<name>customer-service</name>
 	<description>Projeto para cadastro de clientes</description>
 	<properties>
 		<java.version>11</java.version>
