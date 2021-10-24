@@ -17,6 +17,7 @@ CREATE SEQUENCE tb_client_id_seq INCREMENT 1 MINVALUE 1 MAXVALUE 922337203685477
 
 CREATE TABLE "public"."tb_client" (
     "id" bigint DEFAULT nextval('tb_client_id_seq') NOT NULL,
+    "birth_date" date NOT NULL,
     "cpf" character varying(15) NOT NULL,
     "email" character varying(100) NOT NULL,
     "name" character varying(100) NOT NULL,

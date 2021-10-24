@@ -3,10 +3,6 @@ package com.elderpereira.clientservice.request.mapper;
 import com.elderpereira.clientservice.domain.Client;
 import com.elderpereira.clientservice.request.ClientPostRequestBody;
 import com.elderpereira.clientservice.request.ClientPutRequestBody;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
-import org.mapstruct.factory.Mappers;
 
 
 public class ClientMapper {
