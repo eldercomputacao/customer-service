@@ -134,12 +134,12 @@ public class Address implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(country, address.country) && Objects.equals(street, address.street) && Objects.equals(district, address.district) && Objects.equals(number, address.number) && Objects.equals(complement, address.complement) && Objects.equals(postalCode, address.postalCode) && Objects.equals(city, address.city) && Objects.equals(state, address.state);
+        return Objects.equals(id, address.id) && Objects.equals(country, address.country) && Objects.equals(street, address.street) && Objects.equals(district, address.district) && Objects.equals(number, address.number) && Objects.equals(complement, address.complement) && Objects.equals(postalCode, address.postalCode) && Objects.equals(city, address.city) && Objects.equals(state, address.state) && Objects.equals(client, address.client);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(country, street, district, number, complement, postalCode, city, state);
+        return Objects.hash(id, country, street, district, number, complement, postalCode, city, state, client);
     }
 
     @Override

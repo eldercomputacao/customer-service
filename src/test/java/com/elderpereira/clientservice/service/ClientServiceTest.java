@@ -30,9 +30,8 @@ class ClientServiceTest {
     @Mock
     private ClientRepository clientRepositoryMock;
 
-
     @BeforeEach
-    void setUp(){
+    void setUp() {
         PageImpl<Client> clientPage = new PageImpl<>(List.of(ClientCreator.createClientValid()));
         BDDMockito.when(clientRepositoryMock.findAll(ArgumentMatchers.any(PageRequest.class)))
                 .thenReturn(clientPage);
@@ -52,10 +51,10 @@ class ClientServiceTest {
 
     @Test
     @DisplayName("Returns list of clients inside page object when successful")
-    void findAllPageable_ReturnsListOfClientsInsidePageObject_WhenSuccessful(){
+    void findAllPageable_ReturnsListOfClientsInsidePageObject_WhenSuccessful() {
         String expectedName = ClientCreator.createClientValid().getName();
 
-        Page<Client> clientPage = clientService.findAllPageable(PageRequest.of(1,1));
+        Page<Client> clientPage = clientService.findAllPageable(PageRequest.of(0, 1));
 
         Assertions.assertThat(clientPage).isNotNull();
 
@@ -63,12 +62,13 @@ class ClientServiceTest {
                 .isNotEmpty()
                 .hasSize(1);
 
-        Assertions.assertThat(clientPage.toList().get(0).getName()).isEqualTo(expectedName);
+        Assertions.assertThat(clientPage.toList().get(0).getName())
+                .isEqualTo(expectedName);
     }
 
     @Test
     @DisplayName("Returns list of clients when successful")
-    void findAll_ReturnsListOfClients_WhenSuccessful(){
+    void findAll_ReturnsListOfClients_WhenSuccessful() {
         String expectedName = ClientCreator.createClientValid().getName();
 
         List<Client> clients = clientService.findAll();
@@ -83,7 +83,7 @@ class ClientServiceTest {
 
     @Test
     @DisplayName("Returns anime when successful")
-    void findByIdOrThrowClientNotFoundException_ReturnsClient_WhenSuccessful(){
+    void findByIdOrThrowClientNotFoundException_ReturnsClient_WhenSuccessful() {
         Long expectedId = ClientCreator.createClientValid().getId();
 
         Client client = clientService.findByIdOrThrowClientNotFoundException(1);
@@ -97,7 +97,7 @@ class ClientServiceTest {
 
     @Test
     @DisplayName("Throws ClientNotFoundException when client is not found")
-    void findByIdOrThrowClientNotFoundException_ThrowsClientNotFoundException_WhenClientIsNotFound(){
+    void findByIdOrThrowClientNotFoundException_ThrowsClientNotFoundException_WhenClientIsNotFound() {
         BDDMockito.when(clientRepositoryMock.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.empty());
 
@@ -106,10 +106,30 @@ class ClientServiceTest {
     }
 
     @Test
-    @DisplayName("Removes client when successful")
-    void delete_RemovesClient_WhenSuccessful(){
+    @DisplayName("Returns client when successful")
+    void save_ReturnsClient_WhenSuccessful() {
 
-        Assertions.assertThatCode(() ->clientService.delete(1))
+        Client client = clientService.save(ClientCreator.createClientPostRequestBodyValid());
+
+        Assertions.assertThat(client).isNotNull().isEqualTo(ClientCreator.createClientValid());
+
+    }
+
+    @Test
+    @DisplayName("Updates client when successful")
+    void replace_UpdatesClient_WhenSuccessful() {
+
+        Assertions.assertThatCode(() -> clientService.replace(ClientCreator.createClientPutRequestBodyValid()))
+                .doesNotThrowAnyException();
+
+    }
+
+
+    @Test
+    @DisplayName("Removes client when successful")
+    void delete_RemovesClient_WhenSuccessful() {
+
+        Assertions.assertThatCode(() -> clientService.delete(1))
                 .doesNotThrowAnyException();
 
     }

@@ -53,11 +53,11 @@ class ClientRepositoryTest {
     void save_UpdatesClient_WhenSuccessful(){
         Client clientToBeSaved = ClientCreator.createClientToBeSaved();
 
-        Client clientSaved = this.clientRepository.save(clientToBeSaved);
+        Client clientSaved = clientRepository.save(clientToBeSaved);
 
         clientSaved.setName("Carlos");
 
-        Client clientUpdated = this.clientRepository.save(clientSaved);
+        Client clientUpdated = clientRepository.save(clientSaved);
 
         Assertions.assertThat(clientUpdated).isNotNull();
 
@@ -71,11 +71,11 @@ class ClientRepositoryTest {
     void delete_RemovesClient_WhenSuccessful(){
         Client clientToBeSaved = ClientCreator.createClientToBeSaved();
 
-        Client clientSaved = this.clientRepository.save(clientToBeSaved);
+        Client clientSaved = clientRepository.save(clientToBeSaved);
 
-        this.clientRepository.delete(clientSaved);
+        clientRepository.delete(clientSaved);
 
-        Optional<Client> animeOptional = this.clientRepository.findById(clientSaved.getId());
+        Optional<Client> animeOptional = clientRepository.findById(clientSaved.getId());
 
         Assertions.assertThat(animeOptional).isEmpty();
     }
@@ -93,7 +93,7 @@ class ClientRepositoryTest {
     void findAll_ReturnsNotEmptyList(){
         Client clientToBeSaved = ClientCreator.createClientToBeSaved();
 
-       this.clientRepository.save(clientToBeSaved);
+        clientRepository.save(clientToBeSaved);
 
         List<Client> clients = clientRepository.findAll();
 

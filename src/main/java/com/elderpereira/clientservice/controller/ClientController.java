@@ -1,6 +1,8 @@
 package com.elderpereira.clientservice.controller;
 
 import com.elderpereira.clientservice.domain.Client;
+import com.elderpereira.clientservice.request.ClientPostRequestBody;
+import com.elderpereira.clientservice.request.ClientPutRequestBody;
 import com.elderpereira.clientservice.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,13 +26,23 @@ public class ClientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> listAll() {
+    public ResponseEntity<List<Client>> findAll() {
         return ResponseEntity.ok(clientService.findAll());
     }
 
     @GetMapping(path = "/pageable")
-    public ResponseEntity<Page<Client>> list(Pageable pageable) {
+    public ResponseEntity<Page<Client>> findAllPageable(Pageable pageable) {
         return ResponseEntity.ok(clientService.findAllPageable(pageable));
+    }
+
+    @PostMapping
+    public ResponseEntity<Client> save(@RequestBody ClientPostRequestBody clientPostRequestBody) {
+        return new ResponseEntity<>(clientService.save(clientPostRequestBody), HttpStatus.CREATED);
+    }
+
+    @PutMapping
+    public ResponseEntity<Client> replace(@RequestBody ClientPutRequestBody clientPutRequestBody) {
+        return new ResponseEntity<>(clientService.replace(clientPutRequestBody), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -38,5 +50,7 @@ public class ClientController {
         clientService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
 
 }
