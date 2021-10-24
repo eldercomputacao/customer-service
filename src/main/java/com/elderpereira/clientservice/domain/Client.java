@@ -2,6 +2,7 @@ package com.elderpereira.clientservice.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +16,9 @@ public class Client implements Serializable {
 
     @Column(nullable = false, length = 100)
     private String name;
+
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
 
     @Column(nullable = false, length = 15)
     private String cpf;
@@ -31,9 +35,10 @@ public class Client implements Serializable {
     public Client() {
     }
 
-    public Client(Long id, String name, String cpf, String phone, String email) {
+    public Client(Long id, String name, LocalDate birthDate, String cpf, String phone, String email) {
         this.id = id;
         this.name = name;
+        this.birthDate = birthDate;
         this.cpf = cpf;
         this.phone = phone;
         this.email = email;
@@ -63,6 +68,14 @@ public class Client implements Serializable {
         this.cpf = cpf;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -87,17 +100,18 @@ public class Client implements Serializable {
         this.address = address;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return Objects.equals(id, client.id) && Objects.equals(name, client.name) && Objects.equals(cpf, client.cpf) && Objects.equals(phone, client.phone) && Objects.equals(email, client.email) && Objects.equals(address, client.address);
+        return Objects.equals(id, client.id) && Objects.equals(name, client.name) && Objects.equals(birthDate, client.birthDate) && Objects.equals(cpf, client.cpf) && Objects.equals(phone, client.phone) && Objects.equals(email, client.email) && Objects.equals(address, client.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, cpf, phone, email, address);
+        return Objects.hash(id, name, birthDate, cpf, phone, email, address);
     }
 
     @Override
@@ -105,6 +119,7 @@ public class Client implements Serializable {
         return "Client{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
                 ", cpf='" + cpf + '\'' +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +

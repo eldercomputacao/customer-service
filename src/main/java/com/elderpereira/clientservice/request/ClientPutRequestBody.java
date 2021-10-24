@@ -2,11 +2,14 @@ package com.elderpereira.clientservice.request;
 
 import com.elderpereira.clientservice.domain.Address;
 
+import java.time.LocalDate;
+
 public class ClientPutRequestBody {
 
     private Long id;
     private String name;
     private String cpf;
+    private LocalDate birthDate;
     private String phone;
     private String email;
     private Address address;
@@ -15,10 +18,11 @@ public class ClientPutRequestBody {
 
     }
 
-    public ClientPutRequestBody(Long id, String name, String cpf, String phone, String email, Address address) {
+    public ClientPutRequestBody(Long id, String name, String cpf, String phone, LocalDate birthDate, String email, Address address) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
+        this.birthDate = birthDate;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -56,6 +60,14 @@ public class ClientPutRequestBody {
         this.phone = phone;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -74,9 +86,11 @@ public class ClientPutRequestBody {
 
     @Override
     public String toString() {
-        return "ClientPostRequestBody{" +
-                "name='" + name + '\'' +
+        return "ClientPutRequestBody{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", cpf='" + cpf + '\'' +
+                ", birthDate=" + birthDate +
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", address=" + address +

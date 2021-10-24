@@ -111,7 +111,9 @@ class ClientServiceTest {
 
         Client client = clientService.save(ClientCreator.createClientPostRequestBodyValid());
 
-        Assertions.assertThat(client).isNotNull().isEqualTo(ClientCreator.createClientValid());
+        Assertions.assertThat(client).isNotNull();
+
+        Assertions.assertThat(client.getName()).isEqualTo(ClientCreator.createClientValid().getName());
 
     }
 
