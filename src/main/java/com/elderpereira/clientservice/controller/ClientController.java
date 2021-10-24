@@ -4,6 +4,8 @@ import com.elderpereira.clientservice.domain.Client;
 import com.elderpereira.clientservice.request.ClientPostRequestBody;
 import com.elderpereira.clientservice.request.ClientPutRequestBody;
 import com.elderpereira.clientservice.service.ClientService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping("clients")
 public class ClientController {
+
+    Logger logger = LoggerFactory.getLogger(ClientController.class);
 
     @Autowired
     private ClientService clientService;
@@ -37,6 +41,7 @@ public class ClientController {
 
     @PostMapping
     public ResponseEntity<Client> save(@RequestBody ClientPostRequestBody clientPostRequestBody) {
+        logger.info("Data-de-nascimento: {}", clientPostRequestBody.getBirthDate());
         return new ResponseEntity<>(clientService.save(clientPostRequestBody), HttpStatus.CREATED);
     }
 

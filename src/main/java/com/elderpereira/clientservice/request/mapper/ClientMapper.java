@@ -14,6 +14,7 @@ public class ClientMapper {
         client.setEmail(clientPostRequestBody.getEmail());
         client.setPhone(clientPostRequestBody.getPhone());
         client.setAddress(clientPostRequestBody.getAddress());
+        client.setBirthDate(clientPostRequestBody.getBirthDate());
 
         client.getAddress().setClient(client);
 
@@ -28,6 +29,7 @@ public class ClientMapper {
         client.setEmail(clientPutRequestBody.getEmail());
         client.setPhone(clientPutRequestBody.getPhone());
         client.setAddress(clientPutRequestBody.getAddress());
+        client.setBirthDate(clientPutRequestBody.getBirthDate());
 
         client.getAddress().setClient(client);
 
@@ -40,6 +42,7 @@ public class ClientMapper {
         clientPostRequestBody.setName(client.getName());
         clientPostRequestBody.setEmail(client.getEmail());
         clientPostRequestBody.setPhone(client.getPhone());
+        clientPostRequestBody.setBirthDate(client.getBirthDate());
 
         clientPostRequestBody.setAddress(client.getAddress());
 

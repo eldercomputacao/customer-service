@@ -3,6 +3,8 @@ package com.elderpereira.clientservice.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.Period;
+import java.time.chrono.ChronoLocalDate;
 import java.util.Objects;
 
 @Entity
@@ -100,6 +102,14 @@ public class Client implements Serializable {
         this.address = address;
     }
 
+
+    public Integer getAge(){
+        if(this.birthDate != null){
+            Period period = Period.between(this.birthDate, LocalDate.now());
+            return period.getYears();
+        }
+        return null;
+    }
 
     @Override
     public boolean equals(Object o) {
