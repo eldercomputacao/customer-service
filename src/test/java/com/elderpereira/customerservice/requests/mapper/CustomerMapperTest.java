@@ -12,19 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class CustomerMapperTest {
 
     @Test
-    void toCustomerPostRequestBodyTest() {
-
-        Customer customer = CustomerCreator.createCustomerValid();
-
-        CustomerPostRequestBody clientPostRequestBody = CustomerMapper.toCustomerPostRequestBody(customer);
-
-        Assertions.assertThat(clientPostRequestBody.getName()).isEqualTo(customer.getName());
-
-        Assertions.assertThat(clientPostRequestBody.getAddress().getCountry()).isEqualTo(customer.getAddress().getCountry());
-
-    }
-
-    @Test
     void toCustomerTest() {
 
         CustomerPostRequestBody clientPostRequestBody = CustomerCreator.createCustomerPostRequestBodyValid();

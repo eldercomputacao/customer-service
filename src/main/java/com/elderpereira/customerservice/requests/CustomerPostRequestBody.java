@@ -2,6 +2,7 @@ package com.elderpereira.customerservice.requests;
 
 import com.elderpereira.customerservice.domain.Address;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -26,20 +27,16 @@ public class CustomerPostRequestBody {
    // @Email(message = "The email must be valid")
     private String email;
 
-    private Address address;
+    //private Address address;
 
-    public CustomerPostRequestBody(){
-
-    }
-
-    public CustomerPostRequestBody(String name, String cpf, String phone, LocalDate birthDate, String email, Address address) {
-        this.name = name;
-        this.cpf = cpf;
-        this.phone = phone;
-        this.birthDate = birthDate;
-        this.email = email;
-        this.address = address;
-    }
+    private String country;
+    private String street;
+    private String district;
+    private Integer number;
+    private String complement;
+    private String postalCode;
+    private String city;
+    private String state;
 
     public String getName() {
         return name;
@@ -81,23 +78,67 @@ public class CustomerPostRequestBody {
         this.email = email;
     }
 
-    public Address getAddress() {
-        return address;
+    public String getCountry() {
+        return country;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    @Override
-    public String toString() {
-        return "ClientPostRequestBody{" +
-                "name='" + name + '\'' +
-                ", cpf='" + cpf + '\'' +
-                ", birthDate=" + birthDate +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", address=" + address +
-                '}';
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
