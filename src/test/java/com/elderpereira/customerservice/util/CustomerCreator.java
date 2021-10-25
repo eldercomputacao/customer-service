@@ -2,8 +2,8 @@ package com.elderpereira.customerservice.util;
 
 import com.elderpereira.customerservice.domain.Address;
 import com.elderpereira.customerservice.domain.Customer;
-import com.elderpereira.customerservice.request.CustomerPostRequestBody;
-import com.elderpereira.customerservice.request.CustomerPutRequestBody;
+import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
+import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 
 import java.time.LocalDate;
 

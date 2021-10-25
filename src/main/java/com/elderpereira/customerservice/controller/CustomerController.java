@@ -1,8 +1,8 @@
 package com.elderpereira.customerservice.controller;
 
 import com.elderpereira.customerservice.domain.Customer;
-import com.elderpereira.customerservice.request.CustomerPostRequestBody;
-import com.elderpereira.customerservice.request.CustomerPutRequestBody;
+import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
+import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 import com.elderpereira.customerservice.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -40,7 +41,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> save(@RequestBody CustomerPostRequestBody customerPostRequestBody) {
+    public ResponseEntity<Customer> save(@Valid @RequestBody CustomerPostRequestBody customerPostRequestBody) {
         return new ResponseEntity<>(customerService.save(customerPostRequestBody), HttpStatus.CREATED);
     }
 

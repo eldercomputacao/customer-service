@@ -1,11 +1,12 @@
-package com.elderpereira.customerservice.request;
+package com.elderpereira.customerservice.requests;
 
 import com.elderpereira.customerservice.domain.Address;
 
 import java.time.LocalDate;
 
-public class CustomerPostRequestBody {
+public class CustomerPutRequestBody {
 
+    private Long id;
     private String name;
     private String cpf;
     private LocalDate birthDate;
@@ -13,17 +14,26 @@ public class CustomerPostRequestBody {
     private String email;
     private Address address;
 
-    public CustomerPostRequestBody(){
+    public CustomerPutRequestBody(){
 
     }
 
-    public CustomerPostRequestBody(String name, String cpf, String phone, LocalDate birthDate, String email, Address address) {
+    public CustomerPutRequestBody(Long id, String name, String cpf, String phone, LocalDate birthDate, String email, Address address) {
+        this.id = id;
         this.name = name;
         this.cpf = cpf;
-        this.phone = phone;
         this.birthDate = birthDate;
+        this.phone = phone;
         this.email = email;
         this.address = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -76,8 +86,9 @@ public class CustomerPostRequestBody {
 
     @Override
     public String toString() {
-        return "ClientPostRequestBody{" +
-                "name='" + name + '\'' +
+        return "ClientPutRequestBody{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", cpf='" + cpf + '\'' +
                 ", birthDate=" + birthDate +
                 ", phone='" + phone + '\'' +

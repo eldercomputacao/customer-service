@@ -3,9 +3,9 @@ package com.elderpereira.customerservice.service;
 import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.exceptions.CustomerNotFoundException;
 import com.elderpereira.customerservice.repository.CustomerRepository;
-import com.elderpereira.customerservice.request.CustomerPostRequestBody;
-import com.elderpereira.customerservice.request.CustomerPutRequestBody;
-import com.elderpereira.customerservice.request.mapper.CustomerMapper;
+import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
+import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
+import com.elderpereira.customerservice.requests.mapper.CustomerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,7 @@ public class CustomerService {
     public Customer findByIdOrThrowCustomerNotFoundException(long id){
         return customerRepository
                 .findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("customer Not Found"));
+                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
     }
 
     public List<Customer> findAll() {

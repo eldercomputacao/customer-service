@@ -1,8 +1,8 @@
-package com.elderpereira.customerservice.request.mapper;
+package com.elderpereira.customerservice.requests.mapper;
 
 import com.elderpereira.customerservice.domain.Customer;
-import com.elderpereira.customerservice.request.CustomerPostRequestBody;
-import com.elderpereira.customerservice.request.CustomerPutRequestBody;
+import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
+import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 
 
 public class CustomerMapper {
