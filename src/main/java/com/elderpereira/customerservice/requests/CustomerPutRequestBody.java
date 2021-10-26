@@ -2,25 +2,67 @@ package com.elderpereira.customerservice.requests;
 
 import com.elderpereira.customerservice.domain.Address;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class CustomerPutRequestBody {
 
+    @NotNull(message = "The id cannot be empty")
+    @Positive(message = "The id must be greater than zero")
     private Long id;
+
+    @NotBlank(message = "The name cannot be empty")
+    @Size(min = 2, max = 100, message = "The name must be from 2 to 100 characters")
     private String name;
+
+    @NotBlank(message = "The cpf cannot be empty")
+    @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "The cpf must have the format [ xxx.xxx.xxx-xx ]")
     private String cpf;
+
+    @NotNull(message = "The birthDate cannot be empty")
+    @PastOrPresent(message = "The birthDate is not valid")
     private LocalDate birthDate;
+
+    @NotBlank(message = "The phone cannot be empty")
+    @Pattern(regexp = "\\(\\d\\d\\)\\s\\d\\d\\d\\d\\d-\\d\\d\\d\\d", message = "The phone must have the format [ (xx) xxxxx-xxxx ]")
     private String phone;
+
+    @NotBlank(message = "The email cannot be empty")
+    @Email(message = "The email must be valid")
     private String email;
 
+    @NotBlank(message = "The country cannot be empty")
+    @Size(min = 2, max = 100, message = "The country must be from 2 to 100 characters")
     private String country;
+
+    @NotBlank(message = "The street cannot be empty")
+    @Size(min = 2, max = 100, message = "The street must be from 2 to 100 characters")
     private String street;
+
+    @NotBlank(message = "The district cannot be empty")
+    @Size(min = 2, max = 100, message = "The district must be from 2 to 100 characters")
     private String district;
+
+    @NotNull(message = "The number cannot be empty")
+    @Positive(message = "The number must be greater than zero")
     private Integer number;
+
+    @NotBlank(message = "The complement cannot be empty")
+    @Size(min = 2, max = 100, message = "The complement must be from 2 to 100 characters")
     private String complement;
+
+    @NotBlank(message = "The postalCode cannot be empty")
+    @Pattern(regexp = "\\d{5}-\\d{3}", message = "The postalCode must have the format [ #####-### ]")
     private String postalCode;
+
+    @NotBlank(message = "The city cannot be empty")
+    @Size(min = 2, max = 100, message = "The city must be from 2 to 100 characters")
     private String city;
+
+    @NotBlank(message = "The state cannot be empty")
+    @Size(min = 2, max = 100, message = "The state must be from 2 to 100 characters")
     private String state;
+
 
     public Long getId() {
         return id;

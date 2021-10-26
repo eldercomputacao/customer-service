@@ -2,7 +2,7 @@ package com.elderpereira.customerservice.exceptions;
 
 import java.time.LocalDateTime;
 
-public class ExceptionDetails {
+class ExceptionDetails {
     protected String title;
     protected int status;
     protected String details;

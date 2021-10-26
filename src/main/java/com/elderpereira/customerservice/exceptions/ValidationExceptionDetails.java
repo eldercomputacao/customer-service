@@ -1,34 +1,25 @@
 package com.elderpereira.customerservice.exceptions;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-public class ValidationExceptionDetails extends ExceptionDetails {
-    private String fields;
-    private String fieldsMessage;
+class ValidationExceptionDetails extends ExceptionDetails {
+
+    private List<Error> errors;
 
     public ValidationExceptionDetails() {
-
     }
 
-    public ValidationExceptionDetails(String title, int status, String details, String developerMessage, LocalDateTime dateTime, String fields, String fieldsMessage) {
+    public ValidationExceptionDetails(String title, int status, String details, String developerMessage, LocalDateTime dateTime, List<Error> errors) {
         super(title, status, details, developerMessage, dateTime);
-        this.fields = fields;
-        this.fieldsMessage = fieldsMessage;
+        this.errors = errors;
     }
 
-    public String getFields() {
-        return fields;
+    public List<Error> getErrors() {
+        return errors;
     }
 
-    public void setFields(String fields) {
-        this.fields = fields;
-    }
-
-    public String getFieldsMessage() {
-        return fieldsMessage;
-    }
-
-    public void setFieldsMessage(String fieldsMessage) {
-        this.fieldsMessage = fieldsMessage;
+    public void setErrors(List<Error> errors) {
+        this.errors = errors;
     }
 }

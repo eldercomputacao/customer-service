@@ -46,6 +46,14 @@ public class CustomerService {
     }
 
     @Transactional
+    public Customer replace2(CustomerPutRequestBody customerPutRequestBody) {
+        Customer customerSaved = findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId());
+        Customer customer = CustomerMapper.toCustomer(customerPutRequestBody);
+        customer.setId(customerSaved.getId());
+        return customerRepository.save(customer);
+    }
+
+    @Transactional
     public void delete(long id) {
         customerRepository.delete(findByIdOrThrowCustomerNotFoundException(id));
     }

@@ -47,7 +47,7 @@ public class CustomerController {
 
     @PutMapping
     public ResponseEntity<Customer> replace(@RequestBody CustomerPutRequestBody customerPutRequestBody) {
-        return new ResponseEntity<>(customerService.replace(customerPutRequestBody), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.replace2(customerPutRequestBody), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")
