@@ -24,7 +24,8 @@ CREATE TABLE "public"."tb_customer" (
     "phone" character varying(15) NOT NULL,
     CONSTRAINT "tb_customer_pkey" PRIMARY KEY ("id"),
     CONSTRAINT "cpf_unique" UNIQUE ("cpf"),
-    CONSTRAINT "email_unique" UNIQUE ("email")
+    CONSTRAINT "email_unique" UNIQUE ("email"),
+    CONSTRAINT "phone_unique" UNIQUE ("phone")
 ) WITH (oids = false);
 
 

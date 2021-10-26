@@ -24,7 +24,7 @@ public class Customer implements Serializable {
     @Column(nullable = false, length = 15, unique = true)
     private String cpf;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 15, unique = true)
     private String phone;
 
     @Column(nullable = false, length = 100, unique = true)

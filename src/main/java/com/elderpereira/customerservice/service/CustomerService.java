@@ -26,6 +26,24 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
     }
 
+    public Customer findByEmailOrThrowCustomerNotFoundException(String email){
+        return customerRepository
+                .findByEmail(email)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
+    }
+
+    public Customer findByCpfOrThrowCustomerNotFoundException(String cpf){
+        return customerRepository
+                .findByCpf(cpf)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
+    }
+
+    public Customer findByPhoneOrThrowCustomerNotFoundException(String phone){
+        return customerRepository
+                .findByPhone(phone)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
+    }
+
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
@@ -43,14 +61,6 @@ public class CustomerService {
     public Customer replace(CustomerPutRequestBody customerPutRequestBody) {
         customerRepository.delete(findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId()));
         return customerRepository.save(CustomerMapper.toCustomer(customerPutRequestBody));
-    }
-
-    @Transactional
-    public Customer replace2(CustomerPutRequestBody customerPutRequestBody) {
-        Customer customerSaved = findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId());
-        Customer customer = CustomerMapper.toCustomer(customerPutRequestBody);
-        customer.setId(customerSaved.getId());
-        return customerRepository.save(customer);
     }
 
     @Transactional

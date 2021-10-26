@@ -29,7 +29,6 @@ class CustomerPostRequestBodyValidationTest {
         validator = validatorFactory.getValidator();
     }
 
-    // https://farenda.com/java/bean-validation-unit-testing/
     @Test
     @DisplayName("should not have violations")
     void shouldNotHaveViolations() {
@@ -636,7 +635,6 @@ class CustomerPostRequestBodyValidationTest {
         Assertions.assertThat("The number must be greater than zero").isEqualTo(violation.getMessage());
         Assertions.assertThat("number").isEqualTo(violation.getPropertyPath().toString());
     }
-
 
 
     @AfterAll

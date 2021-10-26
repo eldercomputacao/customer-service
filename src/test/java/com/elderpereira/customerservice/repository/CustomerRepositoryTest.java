@@ -12,18 +12,18 @@ import java.util.List;
 import java.util.Optional;
 
 @DataJpaTest
-@DisplayName("Tests for Client Repository")
+@DisplayName("Tests for customer Repository")
 class CustomerRepositoryTest {
 
     @Autowired
-    private CustomerRepository clientRepository;
+    private CustomerRepository customerRepository;
 
     @Test
-    @DisplayName("Persist client when Successful")
-    void save_PersistClient_WhenSuccessful(){
+    @DisplayName("Persist customer when Successful")
+    void save_Persistcustomer_WhenSuccessful(){
         Customer customerToBeSaved = CustomerCreator.createCustomerToBeSaved();
 
-        Customer customerSaved = clientRepository.save(customerToBeSaved);
+        Customer customerSaved = customerRepository.save(customerToBeSaved);
 
         Assertions.assertThat(customerSaved).isNotNull();
 
@@ -33,13 +33,13 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("Returns client when sucessful")
-    void findById_ReturnsClient_WhenSuccessful(){
+    @DisplayName("Returns customer by registered id, when sucessful")
+    void findById_ReturnsCustomer_WhenSuccessful(){
         Customer customerToBeSaved = CustomerCreator.createCustomerToBeSaved();
 
-        clientRepository.save(customerToBeSaved);
+        customerRepository.save(customerToBeSaved);
 
-        Customer customerFinded = clientRepository.getById(customerToBeSaved.getId());
+        Customer customerFinded = customerRepository.getById(customerToBeSaved.getId());
 
         Assertions.assertThat(customerFinded).isNotNull();
 
@@ -49,15 +49,93 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("Update client when Successful")
-    void save_UpdatesClient_WhenSuccessful(){
+    @DisplayName("Returns customer by registered phone, when sucessful")
+    void findByCpf_ReturnsCustomer_WhenSuccessful(){
         Customer customerToBeSaved = CustomerCreator.createCustomerToBeSaved();
 
-        Customer customerSaved = clientRepository.save(customerToBeSaved);
+        customerRepository.save(customerToBeSaved);
+
+        Optional<Customer> customerFinded = customerRepository.findByCpf(customerToBeSaved.getCpf());
+
+
+        Assertions.assertThat(customerFinded).isNotNull();
+
+        Assertions.assertThat(customerFinded.get().getId()).isNotNull();
+
+        Assertions.assertThat(customerFinded.get().getName()).isEqualTo(customerToBeSaved.getName());
+    }
+
+    @Test
+    @DisplayName("Return any customer by unregistered cpf")
+    void findByCpf_ReturnsNotCustomer(){
+
+        Optional<Customer> customerFinded = customerRepository.findByCpf("111.111.111-11");
+
+        Assertions.assertThat(customerFinded.isEmpty()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Returns customer by registered email, when sucessful")
+    void findByEmail_ReturnsCustomer_WhenSuccessful(){
+        Customer customerToBeSaved = CustomerCreator.createCustomerToBeSaved();
+
+        customerRepository.save(customerToBeSaved);
+
+        Optional<Customer> customerFinded = customerRepository.findByEmail(customerToBeSaved.getEmail());
+
+
+        Assertions.assertThat(customerFinded).isNotNull();
+
+        Assertions.assertThat(customerFinded.get().getId()).isNotNull();
+
+        Assertions.assertThat(customerFinded.get().getName()).isEqualTo(customerToBeSaved.getName());
+    }
+
+    @Test
+    @DisplayName("Return any customer by unregistered email")
+    void findByEmail_ReturnsNotCustomer(){
+
+        Optional<Customer> customerFinded = customerRepository.findByEmail("jose@mail.com");
+
+        Assertions.assertThat(customerFinded.isEmpty()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Returns customer by registered phone, when sucessful")
+    void findByPhone_ReturnsCustomer_WhenSuccessful(){
+        Customer customerToBeSaved = CustomerCreator.createCustomerToBeSaved();
+
+        customerRepository.save(customerToBeSaved);
+
+        Optional<Customer> customerFinded = customerRepository.findByPhone(customerToBeSaved.getPhone());
+
+
+        Assertions.assertThat(customerFinded).isNotNull();
+
+        Assertions.assertThat(customerFinded.get().getId()).isNotNull();
+
+        Assertions.assertThat(customerFinded.get().getName()).isEqualTo(customerToBeSaved.getName());
+    }
+
+    @Test
+    @DisplayName("Return any customer by unregistered phone")
+    void findByPhone_ReturnsNotCustomer(){
+
+        Optional<Customer> customerFinded = customerRepository.findByEmail("(33) 33333-3333");
+
+        Assertions.assertThat(customerFinded.isEmpty()).isTrue();
+    }
+
+    @Test
+    @DisplayName("Update customer when Successful")
+    void save_UpdatesCustomer_WhenSuccessful(){
+        Customer customerToBeSaved = CustomerCreator.createCustomerToBeSaved();
+
+        Customer customerSaved = customerRepository.save(customerToBeSaved);
 
         customerSaved.setName("Carlos");
 
-        Customer customerUpdated = clientRepository.save(customerSaved);
+        Customer customerUpdated = customerRepository.save(customerSaved);
 
         Assertions.assertThat(customerUpdated).isNotNull();
 
@@ -67,15 +145,15 @@ class CustomerRepositoryTest {
     }
 
     @Test
-    @DisplayName("Remove client when Successful")
-    void delete_RemovesClient_WhenSuccessful(){
+    @DisplayName("Remove customer when Successful")
+    void delete_RemovesCustomer_WhenSuccessful(){
         Customer customerToBeSaved = CustomerCreator.createCustomerToBeSaved();
 
-        Customer customerSaved = clientRepository.save(customerToBeSaved);
+        Customer customerSaved = customerRepository.save(customerToBeSaved);
 
-        clientRepository.delete(customerSaved);
+        customerRepository.delete(customerSaved);
 
-        Optional<Customer> animeOptional = clientRepository.findById(customerSaved.getId());
+        Optional<Customer> animeOptional = customerRepository.findById(customerSaved.getId());
 
         Assertions.assertThat(animeOptional).isEmpty();
     }
@@ -83,7 +161,7 @@ class CustomerRepositoryTest {
     @Test
     @DisplayName("Returns empty list")
     void findAll_ReturnsEmptyList(){
-        List<Customer> customers = clientRepository.findAll();
+        List<Customer> customers = customerRepository.findAll();
 
         Assertions.assertThat(customers).isEmpty();
     }
@@ -93,9 +171,9 @@ class CustomerRepositoryTest {
     void findAll_ReturnsNotEmptyList(){
         Customer customerToBeSaved = CustomerCreator.createCustomerToBeSaved();
 
-        clientRepository.save(customerToBeSaved);
+        customerRepository.save(customerToBeSaved);
 
-        List<Customer> customers = clientRepository.findAll();
+        List<Customer> customers = customerRepository.findAll();
 
         Assertions.assertThat(customers).isNotEmpty();
     }

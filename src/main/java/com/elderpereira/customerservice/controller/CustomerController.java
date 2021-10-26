@@ -25,9 +25,24 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/id/{id}")
     public ResponseEntity<Customer> findById(@PathVariable long id){
         return new ResponseEntity<>(customerService.findByIdOrThrowCustomerNotFoundException(id), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/cpf/{cpf}")
+    public ResponseEntity<Customer> findByCpf(@PathVariable String cpf){
+        return new ResponseEntity<>(customerService.findByCpfOrThrowCustomerNotFoundException(cpf), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/phone/{phone}")
+    public ResponseEntity<Customer> findByPhone(@PathVariable String phone){
+        return new ResponseEntity<>(customerService.findByPhoneOrThrowCustomerNotFoundException(phone), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/email/{email}")
+    public ResponseEntity<Customer> findByEmail(@PathVariable String email){
+        return new ResponseEntity<>(customerService.findByEmailOrThrowCustomerNotFoundException(email), HttpStatus.OK);
     }
 
     @GetMapping
@@ -47,7 +62,7 @@ public class CustomerController {
 
     @PutMapping
     public ResponseEntity<Customer> replace(@RequestBody CustomerPutRequestBody customerPutRequestBody) {
-        return new ResponseEntity<>(customerService.replace2(customerPutRequestBody), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.replace(customerPutRequestBody), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{id}")

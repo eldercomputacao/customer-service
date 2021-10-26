@@ -32,9 +32,9 @@ class CustomerServiceTest {
 
     @BeforeEach
     void setUp() {
-        PageImpl<Customer> clientPage = new PageImpl<>(List.of(CustomerCreator.createCustomerValid()));
+        PageImpl<Customer> customerPage = new PageImpl<>(List.of(CustomerCreator.createCustomerValid()));
         BDDMockito.when(customerRepositoryMock.findAll(ArgumentMatchers.any(PageRequest.class)))
-                .thenReturn(clientPage);
+                .thenReturn(customerPage);
 
         BDDMockito.when(customerRepositoryMock.findAll())
                 .thenReturn(List.of(CustomerCreator.createCustomerValid()));
@@ -42,6 +42,14 @@ class CustomerServiceTest {
         BDDMockito.when(customerRepositoryMock.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.of(CustomerCreator.createCustomerValid()));
 
+        BDDMockito.when(customerRepositoryMock.findByCpf(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.of(CustomerCreator.createCustomerValid()));
+
+        BDDMockito.when(customerRepositoryMock.findByEmail(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.of(CustomerCreator.createCustomerValid()));
+
+        BDDMockito.when(customerRepositoryMock.findByPhone(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.of(CustomerCreator.createCustomerValid()));
 
         BDDMockito.when(customerRepositoryMock.save(ArgumentMatchers.any(Customer.class)))
                 .thenReturn(CustomerCreator.createCustomerValid());
@@ -50,25 +58,25 @@ class CustomerServiceTest {
     }
 
     @Test
-    @DisplayName("Returns list of clients inside page object when successful")
-    void findAllPageable_ReturnsListOfClientsInsidePageObject_WhenSuccessful() {
+    @DisplayName("Returns list of customers inside page object when successful")
+    void findAllPageable_ReturnsListOfCustomersInsidePageObject_WhenSuccessful() {
         String expectedName = CustomerCreator.createCustomerValid().getName();
 
-        Page<Customer> clientPage = customerService.findAllPageable(PageRequest.of(0, 1));
+        Page<Customer> customerPage = customerService.findAllPageable(PageRequest.of(0, 1));
 
-        Assertions.assertThat(clientPage).isNotNull();
+        Assertions.assertThat(customerPage).isNotNull();
 
-        Assertions.assertThat(clientPage.toList())
+        Assertions.assertThat(customerPage.toList())
                 .isNotEmpty()
                 .hasSize(1);
 
-        Assertions.assertThat(clientPage.toList().get(0).getName())
+        Assertions.assertThat(customerPage.toList().get(0).getName())
                 .isEqualTo(expectedName);
     }
 
     @Test
-    @DisplayName("Returns list of clients when successful")
-    void findAll_ReturnsListOfClients_WhenSuccessful() {
+    @DisplayName("Returns list of customers when successful")
+    void findAll_ReturnsListOfCustomers_WhenSuccessful() {
         String expectedName = CustomerCreator.createCustomerValid().getName();
 
         List<Customer> customers = customerService.findAll();
@@ -82,8 +90,8 @@ class CustomerServiceTest {
     }
 
     @Test
-    @DisplayName("Returns anime when successful")
-    void findByIdOrThrowClientNotFoundException_ReturnsClient_WhenSuccessful() {
+    @DisplayName("Returns customer by id, when successful")
+    void findByIdOrThrowCustomerNotFoundException_ReturnsCustomer_WhenSuccessful() {
         Long expectedId = CustomerCreator.createCustomerValid().getId();
 
         Customer customer = customerService.findByIdOrThrowCustomerNotFoundException(1);
@@ -96,8 +104,8 @@ class CustomerServiceTest {
     }
 
     @Test
-    @DisplayName("Throws ClientNotFoundException when client is not found")
-    void findByIdOrThrowClientNotFoundException_ThrowsClientNotFoundException_WhenClientIsNotFound() {
+    @DisplayName("Throws CustomerNotFoundException when customer is not found by id")
+    void findByIdOrThrowCustomerNotFoundException_ThrowsCustomerNotFoundException_WhencustomerIsNotFound() {
         BDDMockito.when(customerRepositoryMock.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.empty());
 
@@ -106,8 +114,80 @@ class CustomerServiceTest {
     }
 
     @Test
-    @DisplayName("Returns client when successful")
-    void save_ReturnsClient_WhenSuccessful() {
+    @DisplayName("Returns customer by cpf, when successful")
+    void findByCpfOrThrowCustomerNotFoundException_ReturnsCustomer_WhenSuccessful() {
+        String expectedCpf = CustomerCreator.createCustomerValid().getCpf();
+
+        Customer customer = customerService.findByCpfOrThrowCustomerNotFoundException(expectedCpf);
+
+        Assertions.assertThat(customer).isNotNull();
+
+        Assertions.assertThat(customer.getCpf())
+                .isNotNull()
+                .isEqualTo(expectedCpf);
+    }
+
+    @Test
+    @DisplayName("Throws CustomerNotFoundException when customer is not found by cpf")
+    void findByCpfOrThrowCustomerNotFoundException_ThrowsCustomerNotFoundException_WhencustomerIsNotFound() {
+        BDDMockito.when(customerRepositoryMock.findByCpf(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.empty());
+
+        Assertions.assertThatExceptionOfType(CustomerNotFoundException.class)
+                .isThrownBy(() -> customerService.findByCpfOrThrowCustomerNotFoundException("111.111.111-11"));
+    }
+
+    @Test
+    @DisplayName("Returns customer by email, when successful")
+    void findByEmailOrThrowCustomerNotFoundException_ReturnsCustomer_WhenSuccessful() {
+        String expectedEmail = CustomerCreator.createCustomerValid().getEmail();
+
+        Customer customer = customerService.findByCpfOrThrowCustomerNotFoundException(expectedEmail);
+
+        Assertions.assertThat(customer).isNotNull();
+
+        Assertions.assertThat(customer.getEmail())
+                .isNotNull()
+                .isEqualTo(expectedEmail);
+    }
+
+    @Test
+    @DisplayName("Throws CustomerNotFoundException when customer is not found by email")
+    void findByEmailOrThrowCustomerNotFoundException_ThrowsCustomerNotFoundException_WhencustomerIsNotFound() {
+        BDDMockito.when(customerRepositoryMock.findByEmail(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.empty());
+
+        Assertions.assertThatExceptionOfType(CustomerNotFoundException.class)
+                .isThrownBy(() -> customerService.findByEmailOrThrowCustomerNotFoundException("111.111.111-11"));
+    }
+
+    @Test
+    @DisplayName("Returns customer by phone, when successful")
+    void findByPhoneOrThrowCustomerNotFoundException_ReturnsCustomer_WhenSuccessful() {
+        String expectedPhone = CustomerCreator.createCustomerValid().getPhone();
+
+        Customer customer = customerService.findByPhoneOrThrowCustomerNotFoundException(expectedPhone);
+
+        Assertions.assertThat(customer).isNotNull();
+
+        Assertions.assertThat(customer.getPhone())
+                .isNotNull()
+                .isEqualTo(expectedPhone);
+    }
+
+    @Test
+    @DisplayName("Throws CustomerNotFoundException when customer is not found by phone")
+    void findByPhoneOrThrowCustomerNotFoundException_ThrowsCustomerNotFoundException_WhencustomerIsNotFound() {
+        BDDMockito.when(customerRepositoryMock.findByPhone(ArgumentMatchers.anyString()))
+                .thenReturn(Optional.empty());
+
+        Assertions.assertThatExceptionOfType(CustomerNotFoundException.class)
+                .isThrownBy(() -> customerService.findByPhoneOrThrowCustomerNotFoundException("(11) 111111-1111"));
+    }
+
+    @Test
+    @DisplayName("Returns customer when successful")
+    void save_ReturnsCustomer_WhenSuccessful() {
 
         Customer customer = customerService.save(CustomerCreator.createCustomerPostRequestBodyValid());
 
@@ -118,8 +198,8 @@ class CustomerServiceTest {
     }
 
     @Test
-    @DisplayName("Updates client when successful")
-    void replace_UpdatesClient_WhenSuccessful() {
+    @DisplayName("Updates customer when successful")
+    void replace_UpdatesCustomer_WhenSuccessful() {
 
         Assertions.assertThatCode(() -> customerService.replace(CustomerCreator.createCustomerPutRequestBodyValid()))
                 .doesNotThrowAnyException();
@@ -128,8 +208,8 @@ class CustomerServiceTest {
 
 
     @Test
-    @DisplayName("Removes client when successful")
-    void delete_RemovesClient_WhenSuccessful() {
+    @DisplayName("Removes customer when successful")
+    void delete_RemovesCustomer_WhenSuccessful() {
 
         Assertions.assertThatCode(() -> customerService.delete(1))
                 .doesNotThrowAnyException();

@@ -27,54 +27,63 @@ import java.util.List;
 class CustomerControllerTest {
 
     @InjectMocks
-    private CustomerController customerServiceMock;
+    private CustomerController customerController;
 
     @Mock
-    private CustomerService clientServiceMock;
+    private CustomerService customerServiceMock;
 
     @BeforeEach
     void setUp() {
-        PageImpl<Customer> clientPage = new PageImpl<>(List.of(CustomerCreator.createCustomerValid()));
-        BDDMockito.when(clientServiceMock.findAllPageable(ArgumentMatchers.any(PageRequest.class)))
-                .thenReturn(clientPage);
+        PageImpl<Customer> customerPage = new PageImpl<>(List.of(CustomerCreator.createCustomerValid()));
+        BDDMockito.when(customerServiceMock.findAllPageable(ArgumentMatchers.any(PageRequest.class)))
+                .thenReturn(customerPage);
 
-        BDDMockito.when(clientServiceMock.findAll())
+        BDDMockito.when(customerServiceMock.findAll())
                 .thenReturn(List.of(CustomerCreator.createCustomerValid()));
 
-        BDDMockito.when(clientServiceMock.findByIdOrThrowCustomerNotFoundException(ArgumentMatchers.anyLong()))
+        BDDMockito.when(customerServiceMock.findByIdOrThrowCustomerNotFoundException(ArgumentMatchers.anyLong()))
                 .thenReturn(CustomerCreator.createCustomerValid());
 
-        BDDMockito.when(clientServiceMock.save(ArgumentMatchers.any(CustomerPostRequestBody.class)))
+        BDDMockito.when(customerServiceMock.findByEmailOrThrowCustomerNotFoundException(ArgumentMatchers.anyString()))
                 .thenReturn(CustomerCreator.createCustomerValid());
 
-        BDDMockito.when(clientServiceMock.replace(ArgumentMatchers.any(CustomerPutRequestBody.class)))
+        BDDMockito.when(customerServiceMock.findByCpfOrThrowCustomerNotFoundException(ArgumentMatchers.anyString()))
                 .thenReturn(CustomerCreator.createCustomerValid());
 
-        BDDMockito.doNothing().when(clientServiceMock).delete(ArgumentMatchers.anyLong());
+        BDDMockito.when(customerServiceMock.findByPhoneOrThrowCustomerNotFoundException(ArgumentMatchers.anyString()))
+                .thenReturn(CustomerCreator.createCustomerValid());
+
+        BDDMockito.when(customerServiceMock.save(ArgumentMatchers.any(CustomerPostRequestBody.class)))
+                .thenReturn(CustomerCreator.createCustomerValid());
+
+        BDDMockito.when(customerServiceMock.replace(ArgumentMatchers.any(CustomerPutRequestBody.class)))
+                .thenReturn(CustomerCreator.createCustomerValid());
+
+        BDDMockito.doNothing().when(customerServiceMock).delete(ArgumentMatchers.anyLong());
     }
 
     @Test
-    @DisplayName("Returns list of clients inside page object when successful")
-    void list_ReturnsListOfClientsInsidePageObject_WhenSuccessful(){
+    @DisplayName("Returns list of customers inside page object when successful")
+    void list_ReturnsListOfCustomersInsidePageObject_WhenSuccessful() {
         String expectedName = CustomerCreator.createCustomerValid().getName();
 
-        Page<Customer> clientPage = customerServiceMock.findAllPageable(PageRequest.of(0, 1)).getBody();
+        Page<Customer> customerPage = customerController.findAllPageable(PageRequest.of(0, 1)).getBody();
 
-        Assertions.assertThat(clientPage).isNotNull();
+        Assertions.assertThat(customerPage).isNotNull();
 
-        Assertions.assertThat(clientPage.toList())
+        Assertions.assertThat(customerPage.toList())
                 .isNotEmpty()
                 .hasSize(1);
 
-        Assertions.assertThat(clientPage.toList().get(0).getName()).isEqualTo(expectedName);
+        Assertions.assertThat(customerPage.toList().get(0).getName()).isEqualTo(expectedName);
     }
 
     @Test
-    @DisplayName("Returns list of client when successful")
-    void findAll_ReturnsListOfClient_WhenSuccessful() {
+    @DisplayName("Returns list of customer when successful")
+    void findAll_ReturnsListOfCustomer_WhenSuccessful() {
         String expectedName = CustomerCreator.createCustomerValid().getName();
 
-        List<Customer> customers = customerServiceMock.findAll().getBody();
+        List<Customer> customers = customerController.findAll().getBody();
 
         Assertions.assertThat(customers)
                 .isNotNull()
@@ -85,11 +94,11 @@ class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("Returns client when successful")
-    void findById_ReturnsClient_WhenSuccessful(){
+    @DisplayName("Returns customer by id, when successful")
+    void findById_ReturnsCustomer_WhenSuccessful() {
         Long expectedId = CustomerCreator.createCustomerValid().getId();
 
-        Customer customer = customerServiceMock.findById(1).getBody();
+        Customer customer = customerController.findById(1).getBody();
 
         Assertions.assertThat(customer).isNotNull();
 
@@ -99,10 +108,52 @@ class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("Returns client when successful")
-    void save_ReturnsClient_WhenSuccessful(){
+    @DisplayName("Returns customer by cpf, when successful")
+    void findByCpf_ReturnsCustomer_WhenSuccessful() {
+        String expectedCpf = CustomerCreator.createCustomerValid().getCpf();
 
-        Customer customer = customerServiceMock.save(CustomerCreator.createCustomerPostRequestBodyValid()).getBody();
+        Customer customer = customerController.findByCpf(expectedCpf).getBody();
+
+        Assertions.assertThat(customer).isNotNull();
+
+        Assertions.assertThat(customer.getCpf())
+                .isNotNull()
+                .isEqualTo(expectedCpf);
+    }
+
+    @Test
+    @DisplayName("Returns customer by email, when successful")
+    void findByEmail_ReturnsCustomer_WhenSuccessful() {
+        String expectedEmail = CustomerCreator.createCustomerValid().getEmail();
+
+        Customer customer = customerController.findByEmail(expectedEmail).getBody();
+
+        Assertions.assertThat(customer).isNotNull();
+
+        Assertions.assertThat(customer.getEmail())
+                .isNotNull()
+                .isEqualTo(expectedEmail);
+    }
+
+    @Test
+    @DisplayName("Returns customer by phone, when successful")
+    void findByPhone_ReturnsCustomer_WhenSuccessful() {
+        String expectedPhone = CustomerCreator.createCustomerValid().getPhone();
+
+        Customer customer = customerController.findByPhone(expectedPhone).getBody();
+
+        Assertions.assertThat(customer).isNotNull();
+
+        Assertions.assertThat(customer.getPhone())
+                .isNotNull()
+                .isEqualTo(expectedPhone);
+    }
+
+    @Test
+    @DisplayName("Save customer when successful")
+    void save_ReturnsCustomer_WhenSuccessful() {
+
+        Customer customer = customerController.save(CustomerCreator.createCustomerPostRequestBodyValid()).getBody();
 
         Assertions.assertThat(customer)
                 .isNotNull();
@@ -114,10 +165,10 @@ class CustomerControllerTest {
 
 
     @Test
-    @DisplayName("Updates client when successful")
-    void replace_UpdatesClient_WhenSuccessful(){
+    @DisplayName("Updates customer when successful")
+    void replace_UpdatesCustomer_WhenSuccessful() {
 
-        Customer customer = customerServiceMock.replace(CustomerCreator.createCustomerPutRequestBodyValid()).getBody();
+        Customer customer = customerController.replace(CustomerCreator.createCustomerPutRequestBodyValid()).getBody();
 
         Assertions.assertThat(customer)
                 .isNotNull();
@@ -127,13 +178,13 @@ class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("Removes client when successful")
-    void delete_RemovesClient_WhenSuccessful(){
+    @DisplayName("Delete customer when successful")
+    void delete_RemovesCustomer_WhenSuccessful() {
 
-        Assertions.assertThatCode(() -> customerServiceMock.delete(1))
+        Assertions.assertThatCode(() -> customerController.delete(1))
                 .doesNotThrowAnyException();
 
-        ResponseEntity<Void> entity = customerServiceMock.delete(1);
+        ResponseEntity<Void> entity = customerController.delete(1);
 
         Assertions.assertThat(entity).isNotNull();
 

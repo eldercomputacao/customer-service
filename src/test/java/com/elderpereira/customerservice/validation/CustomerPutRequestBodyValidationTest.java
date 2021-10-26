@@ -1,6 +1,5 @@
 package com.elderpereira.customerservice.validation;
 
-import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
 import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 import com.elderpereira.customerservice.util.CustomerCreator;
 import org.assertj.core.api.Assertions;
@@ -639,7 +638,6 @@ class CustomerPutRequestBodyValidationTest {
         Assertions.assertThat("The number must be greater than zero").isEqualTo(violation.getMessage());
         Assertions.assertThat("number").isEqualTo(violation.getPropertyPath().toString());
     }
-
 
 
     @AfterAll
