@@ -5,34 +5,42 @@ import java.time.LocalDate;
 
 public class CustomerPostRequestBody {
 
+    // ok
     @NotBlank(message = "The name cannot be empty")
     @Size(min = 2, max = 100, message = "The name must be from 2 to 100 characters")
     private String name;
 
+    // ok
     @NotBlank(message = "The cpf cannot be empty")
     @Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "The cpf must have the format [ xxx.xxx.xxx-xx ]")
     private String cpf;
 
+    // ok
     @NotNull(message = "The birthDate cannot be empty")
     @PastOrPresent(message = "The birthDate is not valid")
     private LocalDate birthDate;
 
+    // ok
     @NotBlank(message = "The phone cannot be empty")
     @Pattern(regexp = "\\(\\d\\d\\)\\s\\d\\d\\d\\d\\d-\\d\\d\\d\\d", message = "The phone must have the format [ (xx) xxxxx-xxxx ]")
     private String phone;
 
+    // ok
     @NotBlank(message = "The email cannot be empty")
     @Email(message = "The email must be valid")
     private String email;
 
+    // ok
     @NotBlank(message = "The country cannot be empty")
     @Size(min = 2, max = 100, message = "The country must be from 2 to 100 characters")
     private String country;
 
+    // ok
     @NotBlank(message = "The street cannot be empty")
     @Size(min = 2, max = 100, message = "The street must be from 2 to 100 characters")
     private String street;
 
+    // ok
     @NotBlank(message = "The district cannot be empty")
     @Size(min = 2, max = 100, message = "The district must be from 2 to 100 characters")
     private String district;
@@ -41,18 +49,22 @@ public class CustomerPostRequestBody {
     @Positive(message = "The number must be greater than zero")
     private Integer number;
 
+    // ok
     @NotBlank(message = "The complement cannot be empty")
     @Size(min = 2, max = 100, message = "The complement must be from 2 to 100 characters")
     private String complement;
 
+    //ok
     @NotBlank(message = "The postalCode cannot be empty")
     @Pattern(regexp = "\\d{5}-\\d{3}", message = "The postalCode must have the format [ #####-### ]")
     private String postalCode;
 
+    // ok
     @NotBlank(message = "The city cannot be empty")
     @Size(min = 2, max = 100, message = "The city must be from 2 to 100 characters")
     private String city;
 
+    // ok
     @NotBlank(message = "The state cannot be empty")
     @Size(min = 2, max = 100, message = "The state must be from 2 to 100 characters")
     private String state;

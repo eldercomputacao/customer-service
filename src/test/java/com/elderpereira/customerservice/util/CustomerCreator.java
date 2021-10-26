@@ -61,9 +61,9 @@ public class CustomerCreator {
     public static CustomerPostRequestBody createCustomerPostRequestBodyValid(){
         CustomerPostRequestBody customer = new CustomerPostRequestBody();
 
-        customer.setCpf("99999999999");
+        customer.setCpf("222.222.222-22");
         customer.setName("Maria");
-        customer.setPhone("(83)9999-9999");
+        customer.setPhone("(83) 99999-9999");
         customer.setEmail("maria@gmail.com");
         customer.setBirthDate(LocalDate.of(1986, 2, 10));
         customer.setCountry("Brazil");
@@ -82,9 +82,9 @@ public class CustomerCreator {
         CustomerPutRequestBody customer = new CustomerPutRequestBody();
 
         customer.setId(1L);
-        customer.setCpf("99999999999");
+        customer.setCpf("222.222.222-22");
         customer.setName("Maria");
-        customer.setPhone("(83)9999-9999");
+        customer.setPhone("(83) 99999-9999");
         customer.setEmail("maria@gmail.com");
         customer.setBirthDate(LocalDate.of(1986, 2, 10));
         customer.setCountry("Brazil");
