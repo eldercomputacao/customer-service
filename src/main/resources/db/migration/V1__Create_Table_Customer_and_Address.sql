@@ -22,8 +22,10 @@ CREATE TABLE "public"."tb_customer" (
     "email" character varying(100) NOT NULL,
     "name" character varying(100) NOT NULL,
     "phone" character varying(15) NOT NULL,
-    CONSTRAINT "tb_customer_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "tb_customer_pkey" PRIMARY KEY ("id"),
+    CONSTRAINT "cpf_unique" UNIQUE ("cpf"),
+    CONSTRAINT "email_unique" UNIQUE ("email")
 ) WITH (oids = false);
 
 
-ALTER TABLE ONLY "public"."tb_address" ADD CONSTRAINT "fk_address_customer" FOREIGN KEY (customer_id) REFERENCES tb_customer(id) NOT DEFERRABLE;
+ALTER TABLE ONLY "public"."tb_address" ADD CONSTRAINT "fk_customer_id" FOREIGN KEY (customer_id) REFERENCES tb_customer(id) NOT DEFERRABLE;

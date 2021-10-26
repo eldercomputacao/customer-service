@@ -21,13 +21,13 @@ public class Customer implements Serializable {
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 15, unique = true)
     private String cpf;
 
     @Column(nullable = false, length = 15)
     private String phone;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 100, unique = true)
     private String email;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)

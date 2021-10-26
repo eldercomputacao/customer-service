@@ -1,5 +1,6 @@
 package com.elderpereira.customerservice.exceptions;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,19 @@ class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler 
         details.setDateTime(LocalDateTime.now());
 
         return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ExceptionDetails> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+
+        ExceptionDetails details = new ExceptionDetails();
+        details.setTitle("Bad Request");
+        details.setStatus(HttpStatus.BAD_REQUEST.value());
+        details.setDetails(exception.getRootCause().getMessage());
+        details.setDeveloperMessage(exception.getClass().getName());
+        details.setDateTime(LocalDateTime.now());
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
     }
 
     @Override
