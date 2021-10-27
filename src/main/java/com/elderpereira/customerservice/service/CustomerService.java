@@ -1,7 +1,9 @@
 package com.elderpereira.customerservice.service;
 
+import com.elderpereira.customerservice.domain.Address;
 import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.exceptions.CustomerNotFoundException;
+import com.elderpereira.customerservice.repository.AddressRepository;
 import com.elderpereira.customerservice.repository.CustomerRepository;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
 import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
@@ -19,6 +21,9 @@ public class CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @Autowired
+    private AddressRepository addressRepository;
 
     public Customer findByIdOrThrowCustomerNotFoundException(long id){
         return customerRepository
@@ -61,6 +66,13 @@ public class CustomerService {
     public Customer replace(CustomerPutRequestBody customerPutRequestBody) {
         customerRepository.delete(findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId()));
         return customerRepository.save(CustomerMapper.toCustomer(customerPutRequestBody));
+    }
+
+    @Transactional
+    public Customer update(CustomerPutRequestBody customerPutRequestBody) {
+        Customer customerToBeUpdated = findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId());
+        CustomerMapper.toCustomer(customerToBeUpdated, customerPutRequestBody);
+        return customerRepository.save(customerToBeUpdated);
     }
 
     @Transactional

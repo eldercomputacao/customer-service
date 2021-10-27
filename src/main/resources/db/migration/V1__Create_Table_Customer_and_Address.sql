@@ -29,4 +29,4 @@ CREATE TABLE "public"."tb_customer" (
 ) WITH (oids = false);
 
 
-ALTER TABLE ONLY "public"."tb_address" ADD CONSTRAINT "fk_customer_id" FOREIGN KEY (customer_id) REFERENCES tb_customer(id) NOT DEFERRABLE;
+ALTER TABLE ONLY "public"."tb_address" ADD CONSTRAINT "fk_customer_id" FOREIGN KEY (customer_id) REFERENCES tb_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;

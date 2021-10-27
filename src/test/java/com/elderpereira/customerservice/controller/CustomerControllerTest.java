@@ -150,19 +150,6 @@ class CustomerControllerTest {
 
 
     @Test
-    @DisplayName("Updates customer when successful")
-    void replace_UpdatesCustomer_WhenSuccessful() {
-
-        Customer customer = customerController.replace(CustomerCreator.createCustomerPutRequestBodyValid()).getBody();
-
-        Assertions.assertThat(customer)
-                .isNotNull();
-
-        Assertions.assertThat(customer.getName())
-                .isEqualTo(CustomerCreator.createCustomerValid().getName());
-    }
-
-    @Test
     @DisplayName("Delete customer when successful")
     void delete_RemovesCustomer_WhenSuccessful() {
 

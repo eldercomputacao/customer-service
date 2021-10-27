@@ -58,18 +58,23 @@ public class CustomerMapper {
         return customer;
     }
 
-//    public static CustomerPostRequestBody toCustomerPostRequestBody(Customer customer){
-//        CustomerPostRequestBody customerPostRequestBody = new CustomerPostRequestBody();
-//        customerPostRequestBody.setCpf(customer.getCpf());
-//        customerPostRequestBody.setName(customer.getName());
-//        customerPostRequestBody.setEmail(customer.getEmail());
-//        customerPostRequestBody.setPhone(customer.getPhone());
-//        customerPostRequestBody.setBirthDate(customer.getBirthDate());
-//
-//        //customerPostRequestBody.setAddress(customer.getAddress());
-//
-//        return customerPostRequestBody;
-//    }
+    public static void toCustomer(Customer customer, CustomerPutRequestBody customerPutRequestBody){
+        customer.setId(customerPutRequestBody.getId());
+        customer.setCpf(customerPutRequestBody.getCpf());
+        customer.setName(customerPutRequestBody.getName());
+        customer.setEmail(customerPutRequestBody.getEmail());
+        customer.setPhone(customerPutRequestBody.getPhone());
+        customer.setBirthDate(customerPutRequestBody.getBirthDate());
+
+        customer.getAddress().setCountry(customerPutRequestBody.getCountry());
+        customer.getAddress().setState(customerPutRequestBody.getState());
+        customer.getAddress().setCity(customerPutRequestBody.getCity());
+        customer.getAddress().setDistrict(customerPutRequestBody.getDistrict());
+        customer.getAddress().setPostalCode(customerPutRequestBody.getPostalCode());
+        customer.getAddress().setStreet(customerPutRequestBody.getStreet());
+        customer.getAddress().setNumber(customerPutRequestBody.getNumber());
+        customer.getAddress().setComplement(customerPutRequestBody.getComplement());
+    }
 
 
 }

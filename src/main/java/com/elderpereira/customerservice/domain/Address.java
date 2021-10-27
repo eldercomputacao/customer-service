@@ -57,6 +57,14 @@ public class Address implements Serializable {
         this.state = state;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getCountry() {
         return country;
     }

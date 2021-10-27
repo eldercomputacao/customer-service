@@ -114,7 +114,7 @@ class CustomerControllerIT {
     }
 
     @Test
-    @DisplayName("Returns customer when successful")
+    @DisplayName("Save customer, returns customer when successful")
     void save_ReturnsCustomer_WhenSuccessful(){
         CustomerPostRequestBody customerPostRequestBody = CustomerCreator.createCustomerPostRequestBodyValid();
 

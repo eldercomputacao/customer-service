@@ -98,8 +98,8 @@ public class CustomerController {
             @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
     })
     @PutMapping
-    public ResponseEntity<Customer> replace(@RequestBody CustomerPutRequestBody customerPutRequestBody) {
-        return new ResponseEntity<>(customerService.replace(customerPutRequestBody), HttpStatus.OK);
+    public ResponseEntity<Customer> update(@RequestBody CustomerPutRequestBody customerPutRequestBody) {
+        return new ResponseEntity<>(customerService.update(customerPutRequestBody), HttpStatus.OK);
     }
 
     @Operation(summary = "Remove a customer by id")
