@@ -4,8 +4,15 @@ import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
 import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 import com.elderpereira.customerservice.service.CustomerService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +21,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
+
+@Tag(name = "Customer Controller")
 @RestController
 @RequestMapping("customers")
 public class CustomerController {
@@ -25,46 +33,80 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    @Operation(summary = "Search for a customer by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database", content = @Content(schema = @Schema(hidden = true)))
+    })
     @GetMapping(path = "/id/{id}")
     public ResponseEntity<Customer> findById(@PathVariable long id){
         return new ResponseEntity<>(customerService.findByIdOrThrowCustomerNotFoundException(id), HttpStatus.OK);
     }
 
+    @Operation(summary = "Search for a customer by cpf")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database", content = @Content(schema = @Schema(hidden = true)))
+    })
     @GetMapping(path = "/cpf/{cpf}")
     public ResponseEntity<Customer> findByCpf(@PathVariable String cpf){
         return new ResponseEntity<>(customerService.findByCpfOrThrowCustomerNotFoundException(cpf), HttpStatus.OK);
     }
 
+    @Operation(summary = "Search for a customer by phone")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database", content = @Content(schema = @Schema(hidden = true)))
+    })
     @GetMapping(path = "/phone/{phone}")
     public ResponseEntity<Customer> findByPhone(@PathVariable String phone){
         return new ResponseEntity<>(customerService.findByPhoneOrThrowCustomerNotFoundException(phone), HttpStatus.OK);
     }
 
+    @Operation(summary = "Search for a customer by email")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database", content = @Content(schema = @Schema(hidden = true)))
+    })
     @GetMapping(path = "/email/{email}")
     public ResponseEntity<Customer> findByEmail(@PathVariable String email){
         return new ResponseEntity<>(customerService.findByEmailOrThrowCustomerNotFoundException(email), HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Customer>> findAll() {
-        return ResponseEntity.ok(customerService.findAll());
-    }
-
+    @Operation(summary = "List of customers paginated", description = "The default size is 20, use the parameter size to change the default value")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+    })
     @GetMapping(path = "/pageable")
-    public ResponseEntity<Page<Customer>> findAllPageable(Pageable pageable) {
+    public ResponseEntity<Page<Customer>> findAllPageable(@ParameterObject Pageable pageable) {
         return ResponseEntity.ok(customerService.findAllPageable(pageable));
     }
 
+    @Operation(summary = "Saving a customer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "400", description = "Bad Request, problem saving invalid data", content = @Content(schema = @Schema(hidden = true)))
+    })
     @PostMapping
     public ResponseEntity<Customer> save(@Valid @RequestBody CustomerPostRequestBody customerPostRequestBody) {
         return new ResponseEntity<>(customerService.save(customerPostRequestBody), HttpStatus.CREATED);
     }
 
+    @Operation(summary = "Updating a customer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
+    })
     @PutMapping
     public ResponseEntity<Customer> replace(@RequestBody CustomerPutRequestBody customerPutRequestBody) {
         return new ResponseEntity<>(customerService.replace(customerPutRequestBody), HttpStatus.OK);
     }
 
+    @Operation(summary = "Remove a customer by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Successful Operation"),
+            @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database")
+    })
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable long id) {
         customerService.delete(id);

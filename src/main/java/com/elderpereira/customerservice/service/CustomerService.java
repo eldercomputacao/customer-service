@@ -57,7 +57,7 @@ public class CustomerService {
         return customerRepository.save(CustomerMapper.toCustomer(customerPostRequestBody));
     }
 
-    @Transactional
+    //@Transactional
     public Customer replace(CustomerPutRequestBody customerPutRequestBody) {
         customerRepository.delete(findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId()));
         return customerRepository.save(CustomerMapper.toCustomer(customerPutRequestBody));

@@ -79,21 +79,6 @@ class CustomerControllerTest {
     }
 
     @Test
-    @DisplayName("Returns list of customer when successful")
-    void findAll_ReturnsListOfCustomer_WhenSuccessful() {
-        String expectedName = CustomerCreator.createCustomerValid().getName();
-
-        List<Customer> customers = customerController.findAll().getBody();
-
-        Assertions.assertThat(customers)
-                .isNotNull()
-                .isNotEmpty()
-                .hasSize(1);
-
-        Assertions.assertThat(customers.get(0).getName()).isEqualTo(expectedName);
-    }
-
-    @Test
     @DisplayName("Returns customer by id, when successful")
     void findById_ReturnsCustomer_WhenSuccessful() {
         Long expectedId = CustomerCreator.createCustomerValid().getId();
