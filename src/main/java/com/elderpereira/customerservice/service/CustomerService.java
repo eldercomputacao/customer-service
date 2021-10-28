@@ -1,13 +1,12 @@
 package com.elderpereira.customerservice.service;
 
-import com.elderpereira.customerservice.domain.Address;
 import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.exceptions.CustomerNotFoundException;
 import com.elderpereira.customerservice.repository.AddressRepository;
 import com.elderpereira.customerservice.repository.CustomerRepository;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
 import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
-import com.elderpereira.customerservice.requests.mapper.CustomerMapper;
+import com.elderpereira.customerservice.requests.mapper.CustomerStructMapper;
 import com.elderpereira.customerservice.util.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +19,11 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerRepository customerRepository;
+
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
 
     @Autowired
     private AddressRepository addressRepository;
@@ -60,19 +62,15 @@ public class CustomerService {
 
     @Transactional
     public Customer save(CustomerPostRequestBody customerPostRequestBody) {
-        return customerRepository.save(CustomerMapper.toCustomer(customerPostRequestBody));
-    }
-
-    //@Transactional
-    public Customer replace(CustomerPutRequestBody customerPutRequestBody) {
-        customerRepository.delete(findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId()));
-        return customerRepository.save(CustomerMapper.toCustomer(customerPutRequestBody));
+        Customer customerToSaved = CustomerStructMapper.MAPPER.toCustomer(customerPostRequestBody);
+        customerToSaved.getAddress().setCustomer(customerToSaved);
+        return customerRepository.save(customerToSaved);
     }
 
     @Transactional
     public Customer update(CustomerPutRequestBody customerPutRequestBody) {
         Customer customerToBeUpdated = findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId());
-        CustomerMapper.toCustomer(customerToBeUpdated, customerPutRequestBody);
+        updatingFields(customerToBeUpdated, CustomerStructMapper.MAPPER.toCustomer(customerPutRequestBody));
         return customerRepository.save(customerToBeUpdated);
     }
 
@@ -100,6 +98,23 @@ public class CustomerService {
     @Transactional
     public void delete(long id) {
         customerRepository.delete(findByIdOrThrowCustomerNotFoundException(id));
+    }
+
+    private void updatingFields(Customer sourceCustomer, Customer targetCustomer){
+        targetCustomer.setId(sourceCustomer.getId());
+        targetCustomer.setName(sourceCustomer.getName());
+        targetCustomer.setCpf(sourceCustomer.getCpf());
+        targetCustomer.setEmail(sourceCustomer.getEmail());
+        targetCustomer.setPhone(sourceCustomer.getPhone());
+        targetCustomer.setBirthDate(sourceCustomer.getBirthDate());
+        targetCustomer.getAddress().setCountry(sourceCustomer.getAddress().getCountry());
+        targetCustomer.getAddress().setState(sourceCustomer.getAddress().getState());
+        targetCustomer.getAddress().setStreet(sourceCustomer.getAddress().getStreet());
+        targetCustomer.getAddress().setNumber(sourceCustomer.getAddress().getNumber());
+        targetCustomer.getAddress().setPostalCode(sourceCustomer.getAddress().getPostalCode());
+        targetCustomer.getAddress().setDistrict(sourceCustomer.getAddress().getDistrict());
+        targetCustomer.getAddress().setComplement(sourceCustomer.getAddress().getComplement());
+        targetCustomer.getAddress().setCity(sourceCustomer.getAddress().getCity());
     }
 
 }

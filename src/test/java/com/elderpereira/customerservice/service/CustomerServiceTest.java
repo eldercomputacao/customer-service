@@ -197,14 +197,7 @@ class CustomerServiceTest {
 
     }
 
-    @Test
-    @DisplayName("Updates customer when successful")
-    void replace_UpdatesCustomer_WhenSuccessful() {
 
-        Assertions.assertThatCode(() -> customerService.replace(CustomerCreator.createCustomerPutRequestBodyValid()))
-                .doesNotThrowAnyException();
-
-    }
 
 
     @Test

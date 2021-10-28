@@ -29,17 +29,18 @@ import javax.validation.Valid;
 @RequestMapping("customers")
 public class CustomerController {
 
-    Logger logger = LoggerFactory.getLogger(CustomerController.class);
+    private final CustomerService customerService;
 
-    @Autowired
-    private CustomerService customerService;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     @Operation(summary = "Search for a customer by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
             @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database", content = @Content(schema = @Schema(hidden = true)))
     })
-    @GetMapping(path = "/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Customer> findById(@PathVariable long id){
         return new ResponseEntity<>(customerService.findByIdOrThrowCustomerNotFoundException(id), HttpStatus.OK);
     }
@@ -49,7 +50,7 @@ public class CustomerController {
             @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
             @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database", content = @Content(schema = @Schema(hidden = true)))
     })
-    @GetMapping(path = "/cpf/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<Customer> findByCpf(@PathVariable String cpf){
         return new ResponseEntity<>(customerService.findByCpfOrThrowCustomerNotFoundException(cpf), HttpStatus.OK);
     }
@@ -59,7 +60,7 @@ public class CustomerController {
             @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
             @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database", content = @Content(schema = @Schema(hidden = true)))
     })
-    @GetMapping(path = "/phone/{phone}")
+    @GetMapping("/phone/{phone}")
     public ResponseEntity<Customer> findByPhone(@PathVariable String phone){
         return new ResponseEntity<>(customerService.findByPhoneOrThrowCustomerNotFoundException(phone), HttpStatus.OK);
     }
@@ -69,7 +70,7 @@ public class CustomerController {
             @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
             @ApiResponse(responseCode = "404", description = "When Customer Does Not Exist in The Database", content = @Content(schema = @Schema(hidden = true)))
     })
-    @GetMapping(path = "/email/{email}")
+    @GetMapping("/email/{email}")
     public ResponseEntity<Customer> findByEmail(@PathVariable String email){
         return new ResponseEntity<>(customerService.findByEmailOrThrowCustomerNotFoundException(email), HttpStatus.OK);
     }
@@ -78,7 +79,7 @@ public class CustomerController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
     })
-    @GetMapping(path = "/pageable")
+    @GetMapping
     public ResponseEntity<Page<Customer>> findAllPageable(@ParameterObject Pageable pageable) {
         return ResponseEntity.ok(customerService.findAllPageable(pageable));
     }
@@ -149,7 +150,5 @@ public class CustomerController {
         customerService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-
 
 }

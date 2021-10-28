@@ -32,9 +32,6 @@ import org.springframework.test.annotation.DirtiesContext;
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class CustomerControllerIT {
 
-//    @Autowired
-//    private TestRestTemplate testRestTemplate;
-
     @LocalServerPort
     private int port;
 
@@ -97,7 +94,7 @@ class CustomerControllerIT {
         userRepository.save(USER);
 
         PageableResponse<Customer> customerPage = testRestTemplateRoleUser.exchange(
-                "/customers/pageable", HttpMethod.GET,
+                "/customers", HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<PageableResponse<Customer>>() {
                 }).getBody();
@@ -125,7 +122,7 @@ class CustomerControllerIT {
         userRepository.save(USER);
 
         Customer customer = testRestTemplateRoleUser.getForObject(
-                "/customers/id/{id}",
+                "/customers/{id}",
                 Customer.class,
                 expectedId);
 

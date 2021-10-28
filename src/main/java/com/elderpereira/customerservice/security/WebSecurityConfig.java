@@ -21,15 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserService userService;
 
-    Logger logger = LoggerFactory.getLogger(CustomerController.class);
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
        http.csrf().disable().authorizeRequests()
                .anyRequest()
                .authenticated()
-//               .and()
-//               .formLogin()
                .and()
                .httpBasic();
     }
@@ -37,16 +33,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        logger.info("Password: {}", passwordEncoder.encode("pass123"));
-        auth.inMemoryAuthentication()
-                .withUser("elder")
-                .password(passwordEncoder.encode("pass123"))
-                .roles("USER", "ADMIN")
-                .and()
-                .withUser("carlos")
-                .password(passwordEncoder.encode("pass123"))
-                .roles("USER");
-
         auth.userDetailsService(userService)
                 .passwordEncoder(passwordEncoder);
     }

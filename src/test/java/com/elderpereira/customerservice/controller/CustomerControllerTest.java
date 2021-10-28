@@ -56,9 +56,6 @@ class CustomerControllerTest {
         BDDMockito.when(customerServiceMock.save(ArgumentMatchers.any(CustomerPostRequestBody.class)))
                 .thenReturn(CustomerCreator.createCustomerValid());
 
-        BDDMockito.when(customerServiceMock.replace(ArgumentMatchers.any(CustomerPutRequestBody.class)))
-                .thenReturn(CustomerCreator.createCustomerValid());
-
         BDDMockito.doNothing().when(customerServiceMock).delete(ArgumentMatchers.anyLong());
     }
 
