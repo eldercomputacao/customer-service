@@ -202,6 +202,23 @@ class CustomerControllerIT {
     }
 
     @Test
+    @DisplayName("Save customer, returns customer when successful")
+    void save_Returns403_WhenUserIsNotRoot(){
+        CustomerPostRequestBody customerPostRequestBody = CustomerCreator.createCustomerPostRequestBodyValid();
+
+        userRepository.save(USER);
+
+        ResponseEntity<Customer> customerResponseEntity = testRestTemplateRoleUser.postForEntity(
+                "/customers",
+                customerPostRequestBody,
+                Customer.class);
+
+        Assertions.assertThat(customerResponseEntity).isNotNull();
+        Assertions.assertThat(customerResponseEntity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+
+    }
+
+    @Test
     @DisplayName("Removes customer when successful")
     void delete_RemovesCustomer_WhenSuccessful(){
         Customer savedCustomer = customerRepository.save(CustomerCreator.createCustomerToBeSaved());
@@ -218,6 +235,25 @@ class CustomerControllerIT {
         Assertions.assertThat(customerResponseEntity).isNotNull();
 
         Assertions.assertThat(customerResponseEntity.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
+
+    @Test
+    @DisplayName("Returns 403 when user is not root")
+    void delete_Returns403_WhenUserIsNotRoot(){
+        Customer savedCustomer = customerRepository.save(CustomerCreator.createCustomerToBeSaved());
+
+        userRepository.save(USER);
+
+        ResponseEntity<Void> customerResponseEntity = testRestTemplateRoleUser.exchange(
+                "/customers/{id}",
+                HttpMethod.DELETE,
+                null,
+                Void.class,
+                savedCustomer.getId());
+
+        Assertions.assertThat(customerResponseEntity).isNotNull();
+
+        Assertions.assertThat(customerResponseEntity.getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
     }
 
 

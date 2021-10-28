@@ -105,6 +105,39 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.update(customerPutRequestBody), HttpStatus.OK);
     }
 
+    @Operation(summary = "Updating email of customer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping(path = "/update/id/{id}/email/{email}")
+    public ResponseEntity<Customer> updateEmail(@PathVariable Long id, @PathVariable String email) {
+        return new ResponseEntity<>(customerService.updateEmail(id, email), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Updating phone of customer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping(path = "/update/id/{id}/phone/{phone}")
+    public ResponseEntity<Customer> updatePhone(@PathVariable Long id, @PathVariable String phone) {
+        return new ResponseEntity<>(customerService.updatePhone(id, phone), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Updating cpf of customer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful Operation", content = @Content(schema = @Schema(hidden = true))),
+            @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @PatchMapping(path = "/update/id/{id}/cpf/{cpf}")
+    public ResponseEntity<Customer> updateCpf(@PathVariable Long id, @PathVariable String cpf) {
+        return new ResponseEntity<>(customerService.updateCpf(id, cpf), HttpStatus.OK);
+    }
+
     @Operation(summary = "Remove a customer by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "Successful Operation"),

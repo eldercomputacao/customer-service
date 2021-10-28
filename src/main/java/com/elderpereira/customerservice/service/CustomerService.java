@@ -8,6 +8,7 @@ import com.elderpereira.customerservice.repository.CustomerRepository;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
 import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 import com.elderpereira.customerservice.requests.mapper.CustomerMapper;
+import com.elderpereira.customerservice.util.FieldValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -73,6 +74,27 @@ public class CustomerService {
         Customer customerToBeUpdated = findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId());
         CustomerMapper.toCustomer(customerToBeUpdated, customerPutRequestBody);
         return customerRepository.save(customerToBeUpdated);
+    }
+
+    @Transactional
+    public Customer updateEmail(long id, String email){
+        FieldValidator.validateEmail(email);
+        customerRepository.updateEmail(id, email);
+        return findByIdOrThrowCustomerNotFoundException(id);
+    }
+
+    @Transactional
+    public Customer updatePhone(long id, String phone){
+        FieldValidator.validatePhone(phone);
+        customerRepository.updatePhone(id, phone);
+        return findByIdOrThrowCustomerNotFoundException(id);
+    }
+
+    @Transactional
+    public Customer updateCpf(long id, String cpf){
+        FieldValidator.validateCpf(cpf);
+        customerRepository.updateCpf(id, cpf);
+        return findByIdOrThrowCustomerNotFoundException(id);
     }
 
     @Transactional

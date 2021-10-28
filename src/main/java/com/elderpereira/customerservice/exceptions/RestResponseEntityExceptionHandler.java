@@ -31,6 +31,19 @@ class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(FieldInvalidException.class)
+    public ResponseEntity<ExceptionDetails> handleBadRequestException(FieldInvalidException exception) {
+
+        ExceptionDetails details = new ExceptionDetails();
+        details.setTitle("Field Invalid");
+        details.setStatus(HttpStatus.BAD_REQUEST.value());
+        details.setDetails(exception.getMessage());
+        details.setDeveloperMessage(exception.getClass().getName());
+        details.setDateTime(LocalDateTime.now());
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ExceptionDetails> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
 
