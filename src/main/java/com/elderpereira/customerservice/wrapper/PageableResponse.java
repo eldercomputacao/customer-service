@@ -2,8 +2,8 @@ package com.elderpereira.customerservice.wrapper;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.data.domain.PageImpl;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.data.domain.PageRequest;
 
 import java.util.List;

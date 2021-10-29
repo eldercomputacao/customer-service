@@ -42,7 +42,7 @@ public class CustomerController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<Customer> findById(@PathVariable long id){
-        return new ResponseEntity<>(customerService.findByIdOrThrowCustomerNotFoundException(id), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.findById(id), HttpStatus.OK);
     }
 
     @Operation(summary = "Search for a customer by cpf")
@@ -52,7 +52,7 @@ public class CustomerController {
     })
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<Customer> findByCpf(@PathVariable String cpf){
-        return new ResponseEntity<>(customerService.findByCpfOrThrowCustomerNotFoundException(cpf), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.findByCpf(cpf), HttpStatus.OK);
     }
 
     @Operation(summary = "Search for a customer by phone")
@@ -62,7 +62,7 @@ public class CustomerController {
     })
     @GetMapping("/phone/{phone}")
     public ResponseEntity<Customer> findByPhone(@PathVariable String phone){
-        return new ResponseEntity<>(customerService.findByPhoneOrThrowCustomerNotFoundException(phone), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.findByPhone(phone), HttpStatus.OK);
     }
 
     @Operation(summary = "Search for a customer by email")
@@ -72,7 +72,7 @@ public class CustomerController {
     })
     @GetMapping("/email/{email}")
     public ResponseEntity<Customer> findByEmail(@PathVariable String email){
-        return new ResponseEntity<>(customerService.findByEmailOrThrowCustomerNotFoundException(email), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.findByEmail(email), HttpStatus.OK);
     }
 
     @Operation(summary = "List of customers paginated", description = "The default size is 20, use the parameter size to change the default value")

@@ -94,7 +94,7 @@ class CustomerServiceTest {
     void findByIdOrThrowCustomerNotFoundException_ReturnsCustomer_WhenSuccessful() {
         Long expectedId = CustomerCreator.createCustomerValid().getId();
 
-        Customer customer = customerService.findByIdOrThrowCustomerNotFoundException(1);
+        Customer customer = customerService.findById(1);
 
         Assertions.assertThat(customer).isNotNull();
 
@@ -110,7 +110,7 @@ class CustomerServiceTest {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThatExceptionOfType(CustomerNotFoundException.class)
-                .isThrownBy(() -> customerService.findByIdOrThrowCustomerNotFoundException(1));
+                .isThrownBy(() -> customerService.findById(1));
     }
 
     @Test
@@ -118,7 +118,7 @@ class CustomerServiceTest {
     void findByCpfOrThrowCustomerNotFoundException_ReturnsCustomer_WhenSuccessful() {
         String expectedCpf = CustomerCreator.createCustomerValid().getCpf();
 
-        Customer customer = customerService.findByCpfOrThrowCustomerNotFoundException(expectedCpf);
+        Customer customer = customerService.findByCpf(expectedCpf);
 
         Assertions.assertThat(customer).isNotNull();
 
@@ -134,7 +134,7 @@ class CustomerServiceTest {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThatExceptionOfType(CustomerNotFoundException.class)
-                .isThrownBy(() -> customerService.findByCpfOrThrowCustomerNotFoundException("111.111.111-11"));
+                .isThrownBy(() -> customerService.findByCpf("111.111.111-11"));
     }
 
     @Test
@@ -142,7 +142,7 @@ class CustomerServiceTest {
     void findByEmailOrThrowCustomerNotFoundException_ReturnsCustomer_WhenSuccessful() {
         String expectedEmail = CustomerCreator.createCustomerValid().getEmail();
 
-        Customer customer = customerService.findByCpfOrThrowCustomerNotFoundException(expectedEmail);
+        Customer customer = customerService.findByCpf(expectedEmail);
 
         Assertions.assertThat(customer).isNotNull();
 
@@ -158,7 +158,7 @@ class CustomerServiceTest {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThatExceptionOfType(CustomerNotFoundException.class)
-                .isThrownBy(() -> customerService.findByEmailOrThrowCustomerNotFoundException("111.111.111-11"));
+                .isThrownBy(() -> customerService.findByEmail("111.111.111-11"));
     }
 
     @Test
@@ -166,7 +166,7 @@ class CustomerServiceTest {
     void findByPhoneOrThrowCustomerNotFoundException_ReturnsCustomer_WhenSuccessful() {
         String expectedPhone = CustomerCreator.createCustomerValid().getPhone();
 
-        Customer customer = customerService.findByPhoneOrThrowCustomerNotFoundException(expectedPhone);
+        Customer customer = customerService.findByPhone(expectedPhone);
 
         Assertions.assertThat(customer).isNotNull();
 
@@ -182,7 +182,7 @@ class CustomerServiceTest {
                 .thenReturn(Optional.empty());
 
         Assertions.assertThatExceptionOfType(CustomerNotFoundException.class)
-                .isThrownBy(() -> customerService.findByPhoneOrThrowCustomerNotFoundException("(11) 111111-1111"));
+                .isThrownBy(() -> customerService.findByPhone("(11) 111111-1111"));
     }
 
     @Test

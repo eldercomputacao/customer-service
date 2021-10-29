@@ -25,28 +25,25 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    @Autowired
-    private AddressRepository addressRepository;
-
-    public Customer findByIdOrThrowCustomerNotFoundException(long id){
+    public Customer findById(long id){
         return customerRepository
                 .findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
     }
 
-    public Customer findByEmailOrThrowCustomerNotFoundException(String email){
+    public Customer findByEmail(String email){
         return customerRepository
                 .findByEmail(email)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
     }
 
-    public Customer findByCpfOrThrowCustomerNotFoundException(String cpf){
+    public Customer findByCpf(String cpf){
         return customerRepository
                 .findByCpf(cpf)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
     }
 
-    public Customer findByPhoneOrThrowCustomerNotFoundException(String phone){
+    public Customer findByPhone(String phone){
         return customerRepository
                 .findByPhone(phone)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
@@ -60,44 +57,41 @@ public class CustomerService {
         return customerRepository.findAll(pageable);
     }
 
-    @Transactional
+
     public Customer save(CustomerPostRequestBody customerPostRequestBody) {
         Customer customerToSaved = CustomerStructMapper.MAPPER.toCustomer(customerPostRequestBody);
         customerToSaved.getAddress().setCustomer(customerToSaved);
         return customerRepository.save(customerToSaved);
     }
 
-    @Transactional
+
     public Customer update(CustomerPutRequestBody customerPutRequestBody) {
-        Customer customerToBeUpdated = findByIdOrThrowCustomerNotFoundException(customerPutRequestBody.getId());
+        Customer customerToBeUpdated = findById(customerPutRequestBody.getId());
         updatingFields(customerToBeUpdated, CustomerStructMapper.MAPPER.toCustomer(customerPutRequestBody));
         return customerRepository.save(customerToBeUpdated);
     }
 
-    @Transactional
+
     public Customer updateEmail(long id, String email){
         FieldValidator.validateEmail(email);
         customerRepository.updateEmail(id, email);
-        return findByIdOrThrowCustomerNotFoundException(id);
+        return findById(id);
     }
 
-    @Transactional
     public Customer updatePhone(long id, String phone){
         FieldValidator.validatePhone(phone);
         customerRepository.updatePhone(id, phone);
-        return findByIdOrThrowCustomerNotFoundException(id);
+        return findById(id);
     }
 
-    @Transactional
     public Customer updateCpf(long id, String cpf){
         FieldValidator.validateCpf(cpf);
         customerRepository.updateCpf(id, cpf);
-        return findByIdOrThrowCustomerNotFoundException(id);
+        return findById(id);
     }
 
-    @Transactional
     public void delete(long id) {
-        customerRepository.delete(findByIdOrThrowCustomerNotFoundException(id));
+        customerRepository.delete(findById(id));
     }
 
     private void updatingFields(Customer sourceCustomer, Customer targetCustomer){

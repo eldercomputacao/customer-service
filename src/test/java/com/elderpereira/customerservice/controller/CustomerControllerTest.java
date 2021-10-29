@@ -41,16 +41,16 @@ class CustomerControllerTest {
         BDDMockito.when(customerServiceMock.findAll())
                 .thenReturn(List.of(CustomerCreator.createCustomerValid()));
 
-        BDDMockito.when(customerServiceMock.findByIdOrThrowCustomerNotFoundException(ArgumentMatchers.anyLong()))
+        BDDMockito.when(customerServiceMock.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(CustomerCreator.createCustomerValid());
 
-        BDDMockito.when(customerServiceMock.findByEmailOrThrowCustomerNotFoundException(ArgumentMatchers.anyString()))
+        BDDMockito.when(customerServiceMock.findByEmail(ArgumentMatchers.anyString()))
                 .thenReturn(CustomerCreator.createCustomerValid());
 
-        BDDMockito.when(customerServiceMock.findByCpfOrThrowCustomerNotFoundException(ArgumentMatchers.anyString()))
+        BDDMockito.when(customerServiceMock.findByCpf(ArgumentMatchers.anyString()))
                 .thenReturn(CustomerCreator.createCustomerValid());
 
-        BDDMockito.when(customerServiceMock.findByPhoneOrThrowCustomerNotFoundException(ArgumentMatchers.anyString()))
+        BDDMockito.when(customerServiceMock.findByPhone(ArgumentMatchers.anyString()))
                 .thenReturn(CustomerCreator.createCustomerValid());
 
         BDDMockito.when(customerServiceMock.save(ArgumentMatchers.any(CustomerPostRequestBody.class)))
