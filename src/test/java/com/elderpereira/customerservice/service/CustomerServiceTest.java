@@ -25,7 +25,7 @@ import java.util.Optional;
 class CustomerServiceTest {
 
     @InjectMocks
-    private CustomerService customerService;
+    private CustomerServiceImpl customerService;
 
     @Mock
     private CustomerRepository customerRepositoryMock;

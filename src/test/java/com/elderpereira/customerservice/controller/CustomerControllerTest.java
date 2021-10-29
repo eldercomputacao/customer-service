@@ -4,6 +4,7 @@ import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
 import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 import com.elderpereira.customerservice.service.CustomerService;
+import com.elderpereira.customerservice.service.CustomerServiceImpl;
 import com.elderpereira.customerservice.util.CustomerCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +31,7 @@ class CustomerControllerTest {
     private CustomerController customerController;
 
     @Mock
-    private CustomerService customerServiceMock;
+    private CustomerServiceImpl customerServiceMock;
 
     @BeforeEach
     void setUp() {

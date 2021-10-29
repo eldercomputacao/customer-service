@@ -16,99 +16,31 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-public class CustomerService {
 
-    private final CustomerRepository customerRepository;
+public interface CustomerService {
 
-    public CustomerService(CustomerRepository customerRepository) {
-        this.customerRepository = customerRepository;
-    }
+    Customer findById(long id);
 
-    public Customer findById(long id){
-        return customerRepository
-                .findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
-    }
+    Customer findByEmail(String email);
 
-    public Customer findByEmail(String email){
-        return customerRepository
-                .findByEmail(email)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
-    }
+    Customer findByCpf(String cpf);
 
-    public Customer findByCpf(String cpf){
-        return customerRepository
-                .findByCpf(cpf)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
-    }
+    Customer findByPhone(String phone);
 
-    public Customer findByPhone(String phone){
-        return customerRepository
-                .findByPhone(phone)
-                .orElseThrow(() -> new CustomerNotFoundException("Customer Not Found"));
-    }
+    List<Customer> findAll();
 
-    public List<Customer> findAll() {
-        return customerRepository.findAll();
-    }
+    Page<Customer> findAllPageable(Pageable pageable);
 
-    public Page<Customer> findAllPageable(Pageable pageable) {
-        return customerRepository.findAll(pageable);
-    }
+    Customer save(CustomerPostRequestBody customerPostRequestBody);
 
+    Customer update(CustomerPutRequestBody customerPutRequestBody);
 
-    public Customer save(CustomerPostRequestBody customerPostRequestBody) {
-        Customer customerToSaved = CustomerStructMapper.MAPPER.toCustomer(customerPostRequestBody);
-        customerToSaved.getAddress().setCustomer(customerToSaved);
-        return customerRepository.save(customerToSaved);
-    }
+    Customer updateEmail(long id, String email);
 
+    Customer updatePhone(long id, String phone);
 
-    public Customer update(CustomerPutRequestBody customerPutRequestBody) {
-        Customer customerToBeUpdated = findById(customerPutRequestBody.getId());
-        updatingFields(customerToBeUpdated, CustomerStructMapper.MAPPER.toCustomer(customerPutRequestBody));
-        return customerRepository.save(customerToBeUpdated);
-    }
+    Customer updateCpf(long id, String cpf);
 
-
-    public Customer updateEmail(long id, String email){
-        FieldValidator.validateEmail(email);
-        customerRepository.updateEmail(id, email);
-        return findById(id);
-    }
-
-    public Customer updatePhone(long id, String phone){
-        FieldValidator.validatePhone(phone);
-        customerRepository.updatePhone(id, phone);
-        return findById(id);
-    }
-
-    public Customer updateCpf(long id, String cpf){
-        FieldValidator.validateCpf(cpf);
-        customerRepository.updateCpf(id, cpf);
-        return findById(id);
-    }
-
-    public void delete(long id) {
-        customerRepository.delete(findById(id));
-    }
-
-    private void updatingFields(Customer sourceCustomer, Customer targetCustomer){
-        targetCustomer.setId(sourceCustomer.getId());
-        targetCustomer.setName(sourceCustomer.getName());
-        targetCustomer.setCpf(sourceCustomer.getCpf());
-        targetCustomer.setEmail(sourceCustomer.getEmail());
-        targetCustomer.setPhone(sourceCustomer.getPhone());
-        targetCustomer.setBirthDate(sourceCustomer.getBirthDate());
-        targetCustomer.getAddress().setCountry(sourceCustomer.getAddress().getCountry());
-        targetCustomer.getAddress().setState(sourceCustomer.getAddress().getState());
-        targetCustomer.getAddress().setStreet(sourceCustomer.getAddress().getStreet());
-        targetCustomer.getAddress().setNumber(sourceCustomer.getAddress().getNumber());
-        targetCustomer.getAddress().setPostalCode(sourceCustomer.getAddress().getPostalCode());
-        targetCustomer.getAddress().setDistrict(sourceCustomer.getAddress().getDistrict());
-        targetCustomer.getAddress().setComplement(sourceCustomer.getAddress().getComplement());
-        targetCustomer.getAddress().setCity(sourceCustomer.getAddress().getCity());
-    }
+    void delete(long id);
 
 }
