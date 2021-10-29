@@ -1,6 +1,7 @@
 package com.elderpereira.customerservice.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_address")
+@JsonIgnoreProperties(value = {"id"})
 public class Address implements Serializable {
     private static final long serialVersionUID = 1L;
 

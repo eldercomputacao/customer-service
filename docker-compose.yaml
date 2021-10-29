@@ -1,0 +1,8 @@
+version: '3.1'
+
+services:
+  app-customer-srvice:
+    image: elderpereira/customer-service:latest
+    restart: always
+    ports:
+      - 8080:8080
