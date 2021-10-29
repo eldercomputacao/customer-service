@@ -2,7 +2,6 @@ package com.elderpereira.customerservice.controller;
 
 import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
-import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 import com.elderpereira.customerservice.service.CustomerService;
 import com.elderpereira.customerservice.service.CustomerServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,10 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springdoc.api.annotations.ParameterObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -102,9 +98,9 @@ public class CustomerController {
             @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
     })
     @PreAuthorize("hasRole('ADMIN')")
-    @PutMapping
-    public ResponseEntity<Customer> update(@RequestBody CustomerPutRequestBody customerPutRequestBody) {
-        return new ResponseEntity<>(customerService.update(customerPutRequestBody), HttpStatus.OK);
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Customer> update(@PathVariable long id, @RequestBody CustomerPostRequestBody customerPostRequestBody) {
+        return new ResponseEntity<>(customerService.update(id, customerPostRequestBody), HttpStatus.OK);
     }
 
     @Operation(summary = "Updating email of customer")
@@ -113,8 +109,8 @@ public class CustomerController {
             @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
     })
     @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping(path = "/update/id/{id}/email/{email}")
-    public ResponseEntity<Customer> updateEmail(@PathVariable Long id, @PathVariable String email) {
+    @PatchMapping(path = "/{id}/email/{email}")
+    public ResponseEntity<Customer> updateEmail(@PathVariable long id, @PathVariable String email) {
         return new ResponseEntity<>(customerService.updateEmail(id, email), HttpStatus.OK);
     }
 
@@ -124,8 +120,8 @@ public class CustomerController {
             @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
     })
     @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping(path = "/update/id/{id}/phone/{phone}")
-    public ResponseEntity<Customer> updatePhone(@PathVariable Long id, @PathVariable String phone) {
+    @PatchMapping(path = "/{id}/phone/{phone}")
+    public ResponseEntity<Customer> updatePhone(@PathVariable long id, @PathVariable String phone) {
         return new ResponseEntity<>(customerService.updatePhone(id, phone), HttpStatus.OK);
     }
 
@@ -135,8 +131,8 @@ public class CustomerController {
             @ApiResponse(responseCode = "400", description = "Bad Request, problem updated invalid data", content = @Content(schema = @Schema(hidden = true)))
     })
     @PreAuthorize("hasRole('ADMIN')")
-    @PatchMapping(path = "/update/id/{id}/cpf/{cpf}")
-    public ResponseEntity<Customer> updateCpf(@PathVariable Long id, @PathVariable String cpf) {
+    @PatchMapping(path = "/{id}/cpf/{cpf}")
+    public ResponseEntity<Customer> updateCpf(@PathVariable long id, @PathVariable String cpf) {
         return new ResponseEntity<>(customerService.updateCpf(id, cpf), HttpStatus.OK);
     }
 

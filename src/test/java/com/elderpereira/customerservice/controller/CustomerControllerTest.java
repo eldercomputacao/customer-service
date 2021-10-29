@@ -2,8 +2,6 @@ package com.elderpereira.customerservice.controller;
 
 import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
-import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
-import com.elderpereira.customerservice.service.CustomerService;
 import com.elderpereira.customerservice.service.CustomerServiceImpl;
 import com.elderpereira.customerservice.util.CustomerCreator;
 import org.assertj.core.api.Assertions;

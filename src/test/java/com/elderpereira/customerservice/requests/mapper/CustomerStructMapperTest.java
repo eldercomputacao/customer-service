@@ -2,7 +2,6 @@ package com.elderpereira.customerservice.requests.mapper;
 
 import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
-import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 import com.elderpereira.customerservice.util.CustomerCreator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,19 +32,5 @@ class CustomerStructMapperTest {
 
     }
 
-    @Test
-    void toCustomerTest() {
 
-        CustomerPutRequestBody clientPutRequestBody = CustomerCreator.createCustomerPutRequestBodyValid();
-
-        Customer customer = CustomerStructMapper.MAPPER.toCustomer(clientPutRequestBody);
-
-        logger.info("Customer: {}", customer);
-
-        Assertions.assertThat(customer.getName()).isEqualTo(clientPutRequestBody.getName());
-        Assertions.assertThat(customer.getAddress().getCity()).isEqualTo(clientPutRequestBody.getCity());
-        Assertions.assertThat(customer.getAddress().getCountry()).isEqualTo(clientPutRequestBody.getCountry());
-        Assertions.assertThat(customer.getAddress().getPostalCode()).isEqualTo(clientPutRequestBody.getPostalCode());
-
-    }
 }

@@ -4,11 +4,8 @@ import com.elderpereira.customerservice.domain.Customer;
 import com.elderpereira.customerservice.exceptions.CustomerNotFoundException;
 import com.elderpereira.customerservice.repository.CustomerRepository;
 import com.elderpereira.customerservice.requests.CustomerPostRequestBody;
-import com.elderpereira.customerservice.requests.CustomerPutRequestBody;
 import com.elderpereira.customerservice.requests.mapper.CustomerStructMapper;
 import com.elderpereira.customerservice.util.FieldValidator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -71,9 +68,9 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer update(CustomerPutRequestBody customerPutRequestBody) {
-        Customer customerToBeUpdated = findById(customerPutRequestBody.getId());
-        updatingFields(customerToBeUpdated, CustomerStructMapper.MAPPER.toCustomer(customerPutRequestBody));
+    public Customer update(long id, CustomerPostRequestBody customerPostRequestBody) {
+        Customer customerToBeUpdated = findById(id);
+        updatingFields(customerToBeUpdated, CustomerStructMapper.MAPPER.toCustomer(customerPostRequestBody));
         return customerRepository.save(customerToBeUpdated);
     }
 
@@ -107,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private void updatingFields(Customer targetCustomer, Customer sourceCustomer){
-        targetCustomer.setId(sourceCustomer.getId());
+
         targetCustomer.setName(sourceCustomer.getName());
         targetCustomer.setCpf(sourceCustomer.getCpf());
         targetCustomer.setEmail(sourceCustomer.getEmail());
