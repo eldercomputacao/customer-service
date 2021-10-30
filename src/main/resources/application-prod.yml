@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://database-postgres.cvgu4oxlbhuu.us-west-2.rds.amazonaws.com:5432/customer_service
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://xxxxxxxxxxxxx/customer_service
+    username: xxxxxxx
+    password: xxxxxxx
   jpa:
     hibernate:
       ddl-auto: none

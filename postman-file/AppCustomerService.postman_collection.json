@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "e9513f0e-def3-49b3-a0cf-c2773dc2a3ce",
+		"name": "AppCustomerService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search customer find by id",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers/9",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Changing data only the customer's phone",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers/9/phone/(12) 34567-9876",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"9",
+						"phone",
+						"(12) 34567-9876"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Changing data only the customer's cpf",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers/9/cpf/123.456.789-33",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"9",
+						"cpf",
+						"123.456.789-33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Changing data only the customer's email",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers/9/email/cali@cali.com",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"9",
+						"email",
+						"cali@cali.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search customer find by cpf",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers/cpf/123.456.789-33",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"cpf",
+						"123.456.789-33"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search customer find by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers/email/maria@mail.com",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"email",
+						"maria@mail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search customer find by phone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers/phone/(83) 98888-8888",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"phone",
+						"(83) 98888-8888"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete customer",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers/2",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Saving customer",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Carlos Oliveira\",\n  \"cpf\": \"123.888.888-8\",\n  \"birthDate\": \"2010-10-10\",\n  \"phone\": \"(83) 48888-8888\",\n  \"email\": \"mariap@mail.com\",\n  \"country\": \"Brasil\",\n  \"street\": \"R Solon Medeiros\",\n  \"district\": \"Bessa\",\n  \"number\": 1145,\n  \"complement\": \"Apartamento\",\n  \"postalCode\": \"58104-130\",\n  \"city\": \"João Pessoa\",\n  \"state\": \"Paraíba\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/customers",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updating customer",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"e\",\n  \"cpf\": \"123.838.876-09\",\n  \"birthDate\": \"2010-10-10\",\n  \"phone\": \"(83) 78888-8888\",\n  \"email\": \"carlos@mail.com\",\n  \"country\": \"Brasil\",\n  \"street\": \"R Solon Medeiros\",\n  \"district\": \"Bessa\",\n  \"number\": 1145,\n  \"complement\": \"Apartamento\",\n  \"postalCode\": \"58104-130\",\n  \"city\": \"João Pessoa\",\n  \"state\": \"Paraíba\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/customers/7",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search all paged customers",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "{{user}}",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/customers",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
